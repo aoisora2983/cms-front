@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'),
+        local('MaterialIcons-Regular'),
+        url(/public/font/MaterialIcons-Regular.woff2) format('woff2'),
+        url(/public/font/font/MaterialIcons-Regular.woff) format('woff'),
+        url(/public/font/font/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    /* ページ遷移時のスクロール有無でレイアウトがズレるので、スクロールバーは出しっぱなしにする */
+    overflow-y: scroll;
+    /* font */
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans", "Noto Sans", Meiryo, sans-serif;
+}
+
+.page {
+    /* アクセシビリティ確保のため、ヘッダー分の高さを確保 */
+    scroll-margin-top: 80px;
+}
+
+header {
+    height: 80px;
+    z-index: 100;
+}
+
+/* cssだけのアコーディオン動作処理 */
+@media (max-width: 768px) {
+    #accordion-label {
+        position: absolute;
+        top: 32px;
+        right: 32px;
+        cursor: pointer;
+        width: 32px;
+        height: 24px;
+        z-index: 101;
+    }
+
+    #accordion-label>span {
+        transition: all .3s;
+        position: absolute;
+        height: 2px;
+        background-color: #333;
+        width: 100%;
+        z-index: 101;
+    }
+
+    #accordion-label span:nth-of-type(1) {
+        top: 4px;
+    }
+
+    #accordion-label span:nth-of-type(2) {
+        top: 12px;
+    }
+
+    #accordion-label span:nth-of-type(3) {
+        top: 20px;
+    }
+
+    #accordion:checked+#accordion-label>span {
+        background-color: #fff;
+    }
+
+    #accordion:checked+#accordion-label span:nth-of-type(1) {
+        top: 10px;
+        transform: translateY(6px) rotate(-33deg);
+    }
+
+    #accordion:checked+#accordion-label span:nth-of-type(2) {
+        opacity: 0;
+    }
+
+    #accordion:checked+#accordion-label span:nth-of-type(3) {
+        top: 10px;
+        transform: translateY(6px) rotate(33deg);
+    }
+
+
+    #accordion+#accordion-label+.accordion-target {
+        visibility: hidden;
+        width: 0;
+        padding: 80px 0px 50px;
+    }
+
+    #accordion:checked+#accordion-label+.accordion-target {
+        visibility: visible;
+        width: 260px;
+        padding: 80px 16px 50px;
+    }
+
+    .accordion-target {
+        transition: all .3s;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 0;
+        right: 0;
+        background-color: #334155;
+        color: white;
+        height: 100vh;
+        z-index: 100;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        overflow: hidden;
+    }
+
+    .accordion-target>li {
+        border-bottom: #fff 2px solid;
+        width: 100%;
+    }
+
+    .accordion-target>li>a,
+    .accordion-target>li>span {
+        display: block;
+        width: 100%;
+        padding: 16px;
+    }
+
+    .accordion-target>li>a:hover {
+        opacity: 0.7;
+        background-color: transparent;
+    }
+}

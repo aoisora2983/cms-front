@@ -6,18 +6,14 @@
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
-    src: local('Material Icons'),
-        local('MaterialIcons-Regular'),
-        url(/public/font/MaterialIcons-Regular.woff2) format('woff2'),
-        url(/public/font/font/MaterialIcons-Regular.woff) format('woff'),
-        url(/public/font/font/MaterialIcons-Regular.ttf) format('truetype');
+    src: url(/public/font/MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2) format('woff2');
+    font-display: swap;
 }
 
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 24px;
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -30,12 +26,15 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+    scroll-padding-top: 100px;
+}
+
 body {
     /* ページ遷移時のスクロール有無でレイアウトがズレるので、スクロールバーは出しっぱなしにする */
     overflow-y: scroll;
     /* font */
-    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
-        "Hiragino Sans", "Noto Sans", Meiryo, sans-serif;
+    font-family: "Helvetica Neue", sans-serif;
 }
 
 .page {
@@ -43,13 +42,8 @@ body {
     scroll-margin-top: 80px;
 }
 
-header {
-    height: 80px;
-    z-index: 100;
-}
-
 /* cssだけのアコーディオン動作処理 */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     #accordion-label {
         position: absolute;
         top: 32px;
@@ -135,7 +129,6 @@ header {
 
     .accordion-target>li>a,
     .accordion-target>li>span {
-        display: block;
         width: 100%;
         padding: 16px;
     }
@@ -144,4 +137,56 @@ header {
         opacity: 0.7;
         background-color: transparent;
     }
+}
+
+.page-enter-active,
+.page-leave-active {
+    transition: all 0.1s ease-out;
+}
+
+.page-enter-from,
+.page-leave-to {
+    opacity: 0;
+}
+
+.circle-image-wrapper>img {
+    clip-path: circle(50% at 50% 50%);
+}
+
+.overlay {
+    z-index: 100;
+}
+
+.modal-body,
+.loading {
+    z-index: 101;
+}
+
+.modal {
+    z-index: 102;
+}
+
+.profile-icon {
+    clip-path: circle(50% at 50% 50%);
+}
+
+/* loading */
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading {
+    width: 5em;
+    height: 5em;
+    border-radius: 50%;
+    border: 0.25em solid #ccc;
+    border-top-color: #333;
+    animation: spinner 1.5s linear infinite;
+}
+
+/* underline-offset */
+a {
+    text-underline-offset: 4px;
 }

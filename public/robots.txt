@@ -1,1 +1,20 @@
+User-agent: *
+Disallow: /public
 
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: EtaoSpider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-Agent: PerplexityBot
+Disallow: /

@@ -1,0 +1,58 @@
+/** ckeditorで表示・非表示したいもの **/
+.ck.ck-form__row.ck-table-form__border-row,
+.ck.ck-form__row.ck-table-form__background-row {
+    display: none;
+}
+
+.ck.ck-content {
+    height: 100%;
+}
+
+// datepicker
+.vtd-datepicker {
+    margin-top: 80px;
+}
+
+@media (width >=48rem) {
+    .vtd-datepicker {
+        margin-top: 0;
+    }
+}
+
+// tooltip
+.ck.ck-editor__editable_inline {
+    overflow: unset;
+}
+
+.correct-tooltip {
+    padding-bottom: 2px;
+    border-bottom: 2px dashed #000;
+    position: relative;
+}
+
+.correct-tooltip:hover::before {
+    content: attr(data-tooltip)"";
+    clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 52% 90%, 50% 100%, 48% 90%, 0 90%);
+    white-space: pre;
+    position: absolute;
+    display: block;
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 0.8rem;
+    padding: 8px 8px 16px 8px;
+    margin-top: 4px;
+    overflow: visible;
+    color: #fff;
+    font-weight: bold;
+    opacity: 0.9;
+    z-index: 999999;
+}
+
+.correct-tooltip-1:hover::before {
+    background-color: oklch(57.7% 0.245 27.325);
+}
+
+.correct-tooltip-2:hover::before {
+    background-color: oklch(70.5% 0.213 47.604);
+}

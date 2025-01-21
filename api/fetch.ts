@@ -1,34 +1,124 @@
-const API_URL = 'https://ao.devops.cms'
+import type { UseFetchOptions } from '#app'
 
 interface Options<T = object> {
+    notUseFetch?: boolean
     params?: T
     headers?: HeadersInit
     credentials?: Request['credentials']
-    validateStatus?: (status: number) => boolean
+    // validateStatus?: (status: number) => boolean
 }
 
 function createUrl(path: string): string {
-    return API_URL + path
+    const config = useRuntimeConfig()
+    const apiUrl = config.public.apiUrl
+    return apiUrl + path
 }
 
-// 共通
-async function http<T>(path: string, config: RequestInit): Promise<T> {
-    const request = new Request(createUrl(path), config)
+export class ErrorMessage {
+    public name: string
+    public reason: string
 
-    const res = await fetch(request)
+    constructor(messages: ErrorMessage) {
+        this.name = messages?.name ?? ''
+        this.reason = messages?.reason ?? ''
+    }
+}
 
-    if (!res.ok) {
-        const data = await res.json()
-        let message =
-            'エラーが発生しました。しばらくしてからやり直すか、システム管理者に問い合わせてください。<br>'
-        message += data.message
-        throw Error
+export class ErrorMessages {
+    public status: number
+    public messages: ErrorMessage[]
+
+    constructor(status: number, messages: ErrorMessage[]) {
+        this.status = status
+        this.messages = messages
+    }
+}
+
+// 共通($fetch)
+async function execute$fetch<T>(path: string, config: RequestInit): Promise<T> {
+    const error = {
+        ok: true,
+        error: {},
+    }
+    const data = await $fetch(
+        createUrl(path),
+        {
+            method: config.method as 'GET' | 'HEAD' | 'PATCH' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'get' | 'head' | 'patch' | 'post' | 'put' | 'delete' | 'connect' | 'options' | 'trace' | undefined,
+            headers: config.headers,
+            body: config.body,
+            async onResponse({ response }) {
+                if (!response.ok) {
+                    if (Object.getOwnPropertyDescriptor(response._data, 'errorMessages')) {
+                        error.ok = false
+                        const errorMessage = new ErrorMessages(response.status, response._data.errorMessages)
+                        error.error = errorMessage
+                        throw errorMessage
+                    }
+
+                    return
+                }
+
+                // statusCodeが204のときにres.json()を実行するとエラーになるため
+                if (response.status === 204) return {} as T
+
+                return
+            },
+            async onResponseError({ request, response }) {
+                console.log(request)
+                console.log(response)
+            },
+        })
+
+    if (!error.ok) {
+        throw error.error
     }
 
-    // statusCodeが204のときにres.json()を実行するとエラーになるため
-    if (res.status === 204) return {} as T
+    return data as T
+}
 
-    return await res.json()
+// 共通(useFetch)
+async function executeUseFetch<T>(path: string, config: UseFetchOptions<T>): Promise<T> {
+    const error = {
+        ok: true,
+        error: {},
+    }
+
+    const { data } = await useFetch(
+        createUrl(path),
+        {
+            method: config.method,
+            headers: config.headers,
+            credentials: config.credentials,
+            body: config.body,
+            async onResponse({ response }) {
+                if (!response.ok) {
+                    if (Object.getOwnPropertyDescriptor(response._data, 'errorMessages')) {
+                        error.ok = false
+                        const errorMessage = new ErrorMessages(response.status, response._data.errorMessages)
+                        error.error = errorMessage
+                        throw errorMessage
+                    }
+
+                    return
+                }
+
+                // statusCodeが204のときにres.json()を実行するとエラーになるため
+                if (response.status === 204) return {} as T
+
+                return
+            },
+            async onResponseError({ request, response }) {
+                console.log(request)
+                console.log(response)
+            },
+        },
+    )
+
+    if (!error.ok) {
+        throw error.error
+    }
+
+    return data.value as T
 }
 
 function buildCredentials(
@@ -38,7 +128,7 @@ function buildCredentials(
         return undefined
     }
 
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+    // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
     return credentials
 }
@@ -62,6 +152,7 @@ function buildPathWithSearchParams<T = object>(path: string, params?: T) {
     for (const key in params) {
         if (params[key] === undefined || params[key] === null) {
             // URLSearchParamsで`key="undefined"`になるので削除する
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
             delete params[key]
         }
     }
@@ -82,14 +173,24 @@ function buildRequestBody<T = object>(body: T): string | FormData | null {
 }
 
 // get
-export async function get(path: string, options?: Options): Promise<any> {
-    return http(
-        buildPathWithSearchParams(path, options?.params ? options.params : undefined),
-        {
-            headers: buildHeaders(options?.headers),
-            credentials: buildCredentials(options?.credentials),
-        },
-    )
+export async function get<T = object>(path: string, options?: Options): Promise<T> {
+    const config = {
+        headers: buildHeaders(options?.headers),
+        credentials: buildCredentials(options?.credentials),
+    }
+
+    if (options?.notUseFetch) {
+        return execute$fetch(
+            buildPathWithSearchParams(path, options?.params ? options.params : undefined),
+            config,
+        )
+    }
+    else {
+        return executeUseFetch(
+            buildPathWithSearchParams(path, options?.params ? options.params : undefined),
+            config,
+        )
+    }
 }
 
 // post
@@ -98,10 +199,17 @@ export async function post<T, U, V = object>(
     body: T,
     options?: Options<V>,
 ): Promise<U> {
-    return http<U>(path, {
-        method: 'POST',
+    const config = {
+        method: 'POST' as 'GET' | 'HEAD' | 'PATCH' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'get' | 'head' | 'patch' | 'post' | 'put' | 'delete' | 'connect' | 'options' | 'trace' | undefined,
         headers: buildHeaders(options?.headers),
         body: buildRequestBody(body),
         credentials: buildCredentials(options?.credentials),
-    })
+    }
+
+    if (options?.notUseFetch) {
+        return execute$fetch<U>(path, config)
+    }
+    else {
+        return executeUseFetch<U>(path, config)
+    }
 }

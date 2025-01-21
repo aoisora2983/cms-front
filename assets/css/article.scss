@@ -1,0 +1,136 @@
+#blog-article {
+    p {
+        text-indent: 1em;
+    }
+
+    strong {
+        background: linear-gradient(transparent 50%, #fef08a 50%);
+    }
+
+    h2 {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+        padding: 8px 16px;
+        margin: 40px 0 24px 0;
+        border-bottom: 2px solid;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        line-height: 2rem;
+        padding: 4px 16px;
+        margin: 24px 0 16px 0;
+        border-left: 4px solid;
+    }
+
+    h4 {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        padding: 4px 16px;
+        margin: 16px 0;
+        border-left: 6px double;
+    }
+
+    h5 {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        padding: 4px 16px;
+        margin: 8px 0;
+    }
+
+    /** 箇条書きリスト **/
+    // 箇条書き
+    ul,
+    ol {
+        margin-left: 1rem;
+
+        li {
+            margin-left: 0.5em;
+            margin-top: 0.2em;
+            line-height: 1.7rem
+        }
+
+        li::marker {
+            font-weight: bold;
+            color: oklch(44.4% 0.011 73.639);
+        }
+    }
+
+    ul {
+        list-style-type: disc;
+
+        li::marker {
+            font-size: 150%;
+        }
+    }
+
+    // 数字箇条書き
+    ol {
+        list-style-type: decimal;
+    }
+
+    // 図表の見出しはセンタリング
+    figure {
+        text-align: center;
+        margin: auto;
+
+        img {
+            margin: auto;
+        }
+    }
+
+    // リンク
+    a {
+        text-decoration: underline;
+    }
+
+    a[target="_blank"] {
+        margin-right: 18px;
+    }
+
+    a[target="_blank"]::after {
+        content: "";
+        background-image: url(/img/external_link.svg);
+        background-size: contain;
+        position: absolute;
+        width: 16px;
+        height: 16px;
+    }
+
+    a:hover {
+        opacity: 0.5;
+    }
+
+    pre {
+        margin: 16px 8px;
+
+        code {
+            border-radius: 5px;
+        }
+    }
+
+    blockquote {
+        font-style: italic;
+        padding: 8px;
+        background: oklch(96.7% 0.003 264.542);
+        border-left: 4px solid oklch(70.5% 0.015 286.067);
+    }
+
+    // table
+    table {
+        width: 100%;
+
+        th, td {
+            border: 1px solid #bfbfbf;
+            padding: 8px;
+        }
+
+        th {
+            background: #0000000d;
+        }
+    }
+
+    figcaption {
+        display: table-caption;
+    }
+}

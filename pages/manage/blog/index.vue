@@ -209,7 +209,7 @@ useHead({
                                     :data-label="headers.title"
                                     :class="responsiveClass"
                                 >
-                                    <span class="px-2 py-4">
+                                    <span class="px-2 py-4 whitespace-pre-wrap">
                                         {{ article.content.title }}
                                     </span>
                                 </td>

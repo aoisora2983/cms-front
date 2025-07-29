@@ -32,7 +32,7 @@ const thumbnail = content.thumbnail != null ? '/uploader' + content.thumbnail : 
         <h2 class="text-xl font-bold mb-4">
             <NuxtLink
                 :to="'/blog/page/' + content.id"
-                class="hover:underline"
+                class="hover:underline whitespace-pre-wrap"
             >
                 {{ content.title }}
             </NuxtLink>

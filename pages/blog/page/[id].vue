@@ -93,7 +93,7 @@ breadcrumb.push({
             </p>
         </div>
         <article class="break-words mt-2 mb-2 px-1 relative">
-            <h1 class="text-4xl mt-8 font-bold text-center mb-4">
+            <h1 class="text-4xl mt-8 font-bold text-center mb-4 whitespace-pre-wrap">
                 {{ article.content.title }}
             </h1>
             <ul

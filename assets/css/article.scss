@@ -120,7 +120,8 @@
     table {
         width: 100%;
 
-        th, td {
+        th,
+        td {
             border: 1px solid #bfbfbf;
             padding: 8px;
         }
@@ -132,5 +133,20 @@
 
     figcaption {
         display: table-caption;
+    }
+
+    // hihglight.jsのアクセシビリティNG項目の補正
+    .hljs-comment,
+    .hljs-meta,
+    .hljs-meta .hljs-keyword {
+        color: oklch(70.4% 0.04 256.788);
+    }
+
+    .hljs-number,
+    .hljs-symbol,
+    .hljs-literal,
+    .hljs-deletion,
+    .hljs-link {
+        color: oklch(71.2% 0.194 13.428);
     }
 }

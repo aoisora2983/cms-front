@@ -316,6 +316,6 @@ useHead({
 
 <style lang="css">
 .article-option-footer {
-    z-index: 999999;
+    z-index: 102;
 }
 </style>

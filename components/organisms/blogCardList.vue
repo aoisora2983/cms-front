@@ -4,7 +4,7 @@ import { getOpenArticleList } from '~/api/apis/blog/getOpenArticleList'
 const articleList = await getOpenArticleList({
     keyword: null,
     tags: null,
-    limit: 10,
+    limit: 12,
     page: null,
 })
 </script>

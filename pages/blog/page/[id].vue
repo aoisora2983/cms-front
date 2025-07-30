@@ -15,7 +15,7 @@ const article = await getOpenArticle({
 })
 const pastYear = dayjs().subtract(1, 'y')
 const publishedAt = dayjs(article.content.published_start_time)
-const updatedAt = dayjs(article.content.published_update_time)
+const updatedAt = dayjs(article.content.published_updated_time)
 
 // highligh対象の内容を加工
 const tmpHtml = '<body>' + article.content.content + '</body>'
@@ -123,10 +123,13 @@ breadcrumb.push({
                         </time>
                     </dd>
                 </dl>
-                <dl class="flex justify-end">
+                <dl
+                    v-if="publishedAt.format('YYYY年 MM月 DD日') !== updatedAt.format('YYYY年 MM月 DD日')"
+                    class="flex justify-end"
+                >
                     <dt>更新日</dt>
                     <dd class="ml-2">
-                        <time :datetime="article.content.published_update_time">
+                        <time :datetime="article.content.published_updated_time">
                             {{ updatedAt.format('YYYY年 MM月 DD日') }}
                         </time>
                     </dd>

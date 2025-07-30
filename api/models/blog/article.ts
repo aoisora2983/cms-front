@@ -49,7 +49,7 @@ export type Content = {
     content: string
     published_start_time: string
     published_end_time: string
-    published_update_time: string
+    published_updated_time: string
     status: ArticleStatus
     thumbnail: string
     description: string

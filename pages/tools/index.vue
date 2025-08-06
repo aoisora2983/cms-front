@@ -26,11 +26,17 @@ const tools = [
         title: 'パスワード作成ツール',
         description: '文字数、個数、含める文字の種類など、様々な条件を指定してパスワードを複数個作成できるツールです。',
     },
+    {
+        url: '/tools/httool',
+        icon: 'password',
+        title: 'htpasswd, htaccess作成ツール',
+        description: 'Basic認証のためにhtpasswd, htaccessを作成できるツールです。',
+    },
 ]
 </script>
 
 <template>
-    <main class="max-w-4xl mx-auto p-4">
+    <main class="max-w-5xl mx-auto p-4">
         <AtomBreadcrumb :breadcrumb="breadcrumb" />
         <section
             id="blog-list"

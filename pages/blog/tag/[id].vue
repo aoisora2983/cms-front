@@ -42,7 +42,7 @@ breadcrumb.push({
 </script>
 
 <template>
-    <main class="max-w-4xl mx-auto p-4">
+    <main class="max-w-5xl mx-auto p-4">
         <AtomBreadcrumb :breadcrumb="breadcrumb" />
         <section
             id="blog-list"

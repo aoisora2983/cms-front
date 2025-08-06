@@ -232,7 +232,7 @@ generatePassword()
 </script>
 
 <template>
-    <main class="max-w-4xl mx-auto p-4">
+    <main class="max-w-5xl mx-auto p-4">
         <AtomBreadcrumb :breadcrumb="breadcrumb" />
         <div class="max-w-5xl mx-auto mt-10">
             <header class="flex items-center justify-center mb-8">
@@ -243,8 +243,8 @@ generatePassword()
             </header>
             <section>
                 <header class="flex sm:items-center justify-between p-1">
-                    <div class="flex sm:items-end flex-col sm:flex-row">
-                        <h2 class="flex-grow text-xl">
+                    <div class="flex sm:items-end flex-col flex-grow mr-1 sm:mr-8 sm:flex-row border-b-2 border-gray-800 p-2 mb-2">
+                        <h2 class="text-xl">
                             パスワード一覧
                         </h2>
                         <p class="text-sm sm:ml-4">
@@ -279,7 +279,7 @@ generatePassword()
                 </ul>
             </section>
             <section class="mt-4">
-                <h2 class="text-xl">
+                <h2 class="text-xl border-b-2 border-gray-800 p-2 mb-2">
                     作成条件を設定する
                 </h2>
                 <form class="flex flex-col">
@@ -310,7 +310,7 @@ generatePassword()
                                         {{ passwordLength }}文字
                                     </label>
                                 </div>
-                                <div class="py-2">
+                                <div class="py-2 flex items-center">
                                     <input
                                         id="password-length-custom"
                                         v-model="checkedPasswordLength"
@@ -318,16 +318,19 @@ generatePassword()
                                         name="password-length"
                                         :value="passwordLengths.length + 1"
                                     >
-                                    <label
-                                        for="password-length-custom"
-                                        class="pl-2"
-                                    >
+                                    <div class="pl-2">
                                         <input
                                             v-model="customPasswordLength"
+                                            title="カスタムパスワード文字数"
                                             name="password-length-custom-input"
                                             type="number"
                                             class="w-20 rounded"
+                                            @click="checkedPasswordLength = passwordLengths.length + 1"
                                         >
+                                    </div>
+                                    <label
+                                        for="password-length-custom"
+                                    >
                                         文字
                                     </label>
                                 </div>
@@ -339,13 +342,14 @@ generatePassword()
                         <dt
                             class="w-full sm:w-28 py-2 flex items-center justify-center text-center bg-gray-800 text-white"
                         >
-                            個数
+                            <label for="password-number">
+                                個数
+                            </label>
                         </dt>
                         <dd class="p-2 sm:pl-4 flex-grow bg-gray-50">
                             <input
                                 id="password-number"
                                 v-model="passwordNumber"
-                                title="パスワードの個数"
                                 name="password-number"
                                 type="number"
                                 class="w-28 rounded"
@@ -500,7 +504,7 @@ generatePassword()
                     </div>
                 </form>
             </section>
-            <section class="my-4">
+            <section class="mt-8 mb-20">
                 <h2 class="text-xl border-b-2 border-gray-800 p-2 mb-2">
                     使い方
                 </h2>
@@ -508,7 +512,7 @@ generatePassword()
                     パスワードを自動作成するツールです。<br>
                     現在以下の機能があります。いい機能を思いついたら今後も追加予定です。<br>
                     不具合報告、機能ネタをご提供いただける場合は<NuxtLink
-                        class="underline"
+                        class="underline hover:opacity-50"
                         href="/opinion"
                     >問合せフォーム</NuxtLink>からお願いします。
                 </p>
@@ -526,7 +530,7 @@ generatePassword()
                     </li>
                 </ul>
                 <dl>
-                    <dt class="text-lg bg-gray-200 rounded p-2 my-2">
+                    <dt class="text-lg bg-gray-200 rounded py-1 ml-2 pl-4 my-2">
                         文字数
                     </dt>
                     <dd>
@@ -536,7 +540,7 @@ generatePassword()
                         </p>
                     </dd>
 
-                    <dt class="text-lg bg-gray-200 rounded p-2 my-2">
+                    <dt class="text-lg bg-gray-200 rounded py-1 ml-2 pl-4 my-2">
                         個数
                     </dt>
                     <dd>
@@ -546,7 +550,7 @@ generatePassword()
                         </p>
                     </dd>
 
-                    <dt class="text-lg bg-gray-200 rounded p-2 my-2">
+                    <dt class="text-lg bg-gray-200 rounded py-1 ml-2 pl-4 my-2">
                         含める文字
                     </dt>
                     <dd>
@@ -556,7 +560,7 @@ generatePassword()
                         </p>
                     </dd>
 
-                    <dt class="text-lg bg-gray-200 rounded p-2 my-2">
+                    <dt class="text-lg bg-gray-200 rounded py-1 ml-2 pl-4 my-2">
                         その他
                     </dt>
                     <dd>

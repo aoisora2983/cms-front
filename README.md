@@ -36,3 +36,6 @@ yarn dev
 # yarn
 yarn build
 ```
+
+## このCMSで作成したサイト
+<a href="https://awatana.com/" target="_blank">https://awatana.com/</a>

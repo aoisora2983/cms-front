@@ -79,7 +79,7 @@ breadcrumb.push({
             <div class="w-full">
                 <picture>
                     <NuxtImg
-                        src="/public/img/cms_mockup.webp"
+                        src="/img/cms_mockup.webp"
                         alt="CMSのスクリーンショット"
                         width="1454"
                         height="965"

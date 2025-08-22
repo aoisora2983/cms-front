@@ -53,6 +53,9 @@ export default defineNuxtConfig({
                     content: 'telephone=no',
                 },
             ],
+            link: [
+                { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons&display=block' },
+            ],
         },
         pageTransition: {
             name: 'page',

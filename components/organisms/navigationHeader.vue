@@ -10,6 +10,7 @@ const headers: Header[] = [
     { label: 'HOME', url: '/', strict: true, icon: 'home' },
     { label: 'Portfolio', url: '/portfolio', strict: true, icon: 'work' },
     { label: 'Blog', url: '/blog', strict: true, icon: 'description' },
+    { label: 'Tools', url: '/tools', strict: true, icon: 'service_toolbox' },
 ]
 
 const route = useRoute()

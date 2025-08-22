@@ -64,6 +64,13 @@ async function execute$fetch<T>(path: string, config: RequestInit): Promise<T> {
                 return
             },
             async onResponseError({ request, response }) {
+                const json = JSON.parse(response._data)
+                if (Object.getOwnPropertyDescriptor(json, 'errorMessages')) {
+                    error.ok = false
+                    const errorMessage = new ErrorMessages(response.status, json.errorMessages)
+                    error.error = errorMessage
+                    throw errorMessage
+                }
                 console.log(request)
                 console.log(response)
             },

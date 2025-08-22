@@ -32,6 +32,12 @@ const tools = [
         title: 'htpasswd, htaccess作成ツール',
         description: 'Basic認証のためにhtpasswd, htaccessを作成できるツールです。',
     },
+    {
+        url: '/tools/qr',
+        icon: 'qr_code_2',
+        title: 'QRコード作成ツール',
+        description: 'ロゴ画像や画像の色、ドットの種類をカスタマイズしながらQRコードを作成できるツールです。',
+    },
 ]
 </script>
 

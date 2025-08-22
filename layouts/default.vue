@@ -24,6 +24,12 @@ if (config.public.googleAdSense != '') {
         name: 'google-adsense-account',
         content: config.public.googleAdSense,
     })
+
+    scripts.push({
+        async: true,
+        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + config.public.googleAdSense,
+        crossorigin: 'anonymous',
+    })
 }
 
 useHead({

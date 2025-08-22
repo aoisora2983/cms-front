@@ -7,7 +7,6 @@ export const fileupload = async (
         notUseFetch: true,
         headers: {
             Authorization: 'JWT',
-            // 'Content-Type': 'multipart/form-data',
         },
     })
 

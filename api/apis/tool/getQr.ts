@@ -1,0 +1,22 @@
+import { post } from '~/api/fetch'
+
+export type QrRequest = {
+    content: string
+    logo_image_path: string
+    halftone_image_path: string
+    fg_color: string[]
+    bg_color: string
+    bg_transparent: boolean
+    dot_type: number
+    image_extension: number
+}
+
+export const getQr = async (
+    request: QrRequest,
+): Promise<{ url: string }> => {
+    const res: { url: string } = await post('/api/view/tool/qr', request, {
+        notUseFetch: true,
+    })
+
+    return res
+}

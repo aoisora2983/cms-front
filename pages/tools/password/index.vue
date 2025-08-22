@@ -6,7 +6,7 @@ useHead({
 })
 
 useSeoMeta({
-    description: `オンラインでパスワードをランダムに作成するツールです`,
+    description: `文字数、個数、含める文字の種類など、様々な条件を指定してパスワードを複数個作成できるオンラインツールです。`,
 })
 
 const breadcrumb: Breadcrumb[] = []
@@ -234,10 +234,10 @@ generatePassword()
 <template>
     <main class="max-w-5xl mx-auto p-4">
         <AtomBreadcrumb :breadcrumb="breadcrumb" />
-        <div class="max-w-5xl mx-auto mt-10">
-            <header class="flex items-center justify-center mb-8">
+        <div class="max-w-5xl mx-auto mt-4 sm:mt-10">
+            <header class="flex items-center justify-center mb-4 sm:mb-8">
                 <i class="material-icons mr-2 text-4xl">encrypted_add</i>
-                <h1 class="text-4xl font-bold text-center">
+                <h1 class="text-3xl font-bold text-center">
                     パスワード作成ツール
                 </h1>
             </header>

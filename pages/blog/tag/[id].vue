@@ -18,6 +18,13 @@ const articleList = await getOpenArticleList({
     page: null,
 })
 
+if (articleList.total == 0) {
+    throw createError({
+        statusCode: 404,
+        statusMessage: 'Page Not Found',
+    })
+}
+
 useHead({
     title: `${tag.label}の記事一覧`,
 })

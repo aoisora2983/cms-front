@@ -99,6 +99,7 @@ const fileupload = async (event: Event, ref: globalThis.Ref<string, string>) => 
             console.log(error)
         }
         finally {
+            target.value = ''
             // loading.unload()
         }
     }
@@ -272,10 +273,11 @@ const onClickDownload = () => {
                                     <dt
                                         class="w-full sm:w-36 py-2 px-2 flex items-center justify-center text-center bg-gray-800 text-white"
                                     >
-                                        <label for="background-color"> 画像サイズ </label>
+                                        <label for="qr-width"> 画像サイズ </label>
                                     </dt>
                                     <dd class="p-2 sm:pl-4 flex-grow flex items-center bg-gray-50">
                                         <input
+                                            id="qr-width"
                                             v-model="qrWidth"
                                             type="number"
                                             class="max-w-1/2"

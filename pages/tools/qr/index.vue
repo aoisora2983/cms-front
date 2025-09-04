@@ -162,7 +162,7 @@ const onClickDownload = () => {
 </script>
 
 <template>
-    <main class="max-w-5xl mx-auto p-4">
+    <main class="max-w-5xl mx-auto p-4 leading-relaxed">
         <AtomBreadcrumb :breadcrumb="breadcrumb" />
         <div class="max-w-5xl mx-auto mt-4 sm:mt-10">
             <header class="flex items-center justify-center mb-4 sm:mb-8">

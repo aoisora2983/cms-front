@@ -232,7 +232,7 @@ generatePassword()
 </script>
 
 <template>
-    <main class="max-w-5xl mx-auto p-4">
+    <main class="max-w-5xl mx-auto p-4 leading-relaxed">
         <AtomBreadcrumb :breadcrumb="breadcrumb" />
         <div class="max-w-5xl mx-auto mt-4 sm:mt-10">
             <header class="flex items-center justify-center mb-4 sm:mb-8">
@@ -243,7 +243,9 @@ generatePassword()
             </header>
             <section>
                 <header class="flex sm:items-center justify-between p-1">
-                    <div class="flex sm:items-end flex-col flex-grow mr-1 sm:mr-8 sm:flex-row border-b-2 border-gray-800 p-2 mb-2">
+                    <div
+                        class="flex sm:items-end flex-col flex-grow mr-1 sm:mr-8 sm:flex-row border-b-2 border-gray-800 p-2 mb-2"
+                    >
                         <h2 class="text-xl">
                             パスワード一覧
                         </h2>
@@ -328,11 +330,7 @@ generatePassword()
                                             @click="checkedPasswordLength = passwordLengths.length + 1"
                                         >
                                     </div>
-                                    <label
-                                        for="password-length-custom"
-                                    >
-                                        文字
-                                    </label>
+                                    <label for="password-length-custom"> 文字 </label>
                                 </div>
                             </div>
                         </fieldset>
@@ -342,9 +340,7 @@ generatePassword()
                         <dt
                             class="w-full sm:w-28 py-2 flex items-center justify-center text-center bg-gray-800 text-white"
                         >
-                            <label for="password-number">
-                                個数
-                            </label>
+                            <label for="password-number"> 個数 </label>
                         </dt>
                         <dd class="p-2 sm:pl-4 flex-grow bg-gray-50">
                             <input

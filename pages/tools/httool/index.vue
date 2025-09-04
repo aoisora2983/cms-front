@@ -42,10 +42,12 @@ const htpasswd = ref('')
 const htpasswdPath = ref('')
 const authname = ref('Enter ID and Password.')
 const requireIps = ref('')
-const htaccess = ref('AuthType Basic\n'
+const htaccess = ref(
+    'AuthType Basic\n'
     + 'AuthName "Enter ID and Password."\n'
     + 'AuthUserFile /path/here/.htpasswd\n'
-    + 'require valid-user\n')
+    + 'require valid-user\n',
+)
 
 const generatePassword = () => {
     let password = ''
@@ -133,12 +135,14 @@ const generateHtaccess = (event: Event) => {
     // 空文字チェック
     if (htpasswdPath.value.length < 1) {
         htaccessHasError.value = true
-        htaccessErrorMessage.value += 'htpasswdを配置するパスを少なくとも1文字以上入力してください。\n'
+        htaccessErrorMessage.value
+      += 'htpasswdを配置するパスを少なくとも1文字以上入力してください。\n'
     }
 
     if (authname.value.length < 1) {
         htaccessHasError.value = true
-        htaccessErrorMessage.value += 'ダイアログに表示するメッセージを少なくとも1文字以上入力してください。\n'
+        htaccessErrorMessage.value
+      += 'ダイアログに表示するメッセージを少なくとも1文字以上入力してください。\n'
     }
 
     if (htaccessHasError.value) {
@@ -148,12 +152,14 @@ const generateHtaccess = (event: Event) => {
     // 英数字記号チェック
     if (!htpasswdPath.value.match(alphaNumericSymbol)) {
         htaccessHasError.value = true
-        htaccessErrorMessage.value += 'htpasswdを配置するパスは英数字記号のみ入力してください。\n'
+        htaccessErrorMessage.value
+      += 'htpasswdを配置するパスは英数字記号のみ入力してください。\n'
     }
 
     if (!authname.value.match(alphaNumericSymbol)) {
         htaccessHasError.value = true
-        htaccessErrorMessage.value += 'ダイアログに表示するメッセージは英数字記号のみ入力してください。\n'
+        htaccessErrorMessage.value
+      += 'ダイアログに表示するメッセージは英数字記号のみ入力してください。\n'
     }
 
     if (htaccessHasError.value) {
@@ -161,12 +167,18 @@ const generateHtaccess = (event: Event) => {
     }
 
     let _htaccess = ''
-    const _htpasswdPath = (htpasswdPath.value.startsWith('/') ? '' : '/')
+    const _htpasswdPath
+    = (htpasswdPath.value.startsWith('/') ? '' : '/')
         + htpasswdPath.value
         + (htpasswdPath.value.endsWith('/') ? '' : '/')
-    _htaccess = 'AuthType Basic\n'
-        + 'AuthName "' + authname.value + '"\n'
-        + 'AuthUserFile ' + _htpasswdPath + '.htpasswd\n'
+    _htaccess
+    = 'AuthType Basic\n'
+        + 'AuthName "'
+        + authname.value
+        + '"\n'
+        + 'AuthUserFile '
+        + _htpasswdPath
+        + '.htpasswd\n'
         + 'require valid-user\n'
 
     if (requireIps.value.length > 0) {
@@ -220,7 +232,7 @@ const clickResult = (event: Event) => {
 </script>
 
 <template>
-    <main class="max-w-5xl mx-auto p-4">
+    <main class="max-w-5xl mx-auto p-4 leading-relaxed">
         <AtomBreadcrumb :breadcrumb="breadcrumb" />
         <div class="max-w-5xl mx-auto mt-4 sm:mt-10">
             <header class="flex items-center justify-center mb-4 sm:mb-8">
@@ -240,9 +252,7 @@ const clickResult = (event: Event) => {
                                 <dt
                                     class="w-full sm:w-28 py-2 flex items-center justify-center text-center bg-gray-800 text-white"
                                 >
-                                    <label for="input-id">
-                                        ID
-                                    </label>
+                                    <label for="input-id"> ID </label>
                                 </dt>
                                 <dd class="p-2 sm:pl-4 flex-grow bg-gray-200">
                                     <input
@@ -258,9 +268,7 @@ const clickResult = (event: Event) => {
                                 <dt
                                     class="w-full sm:w-28 py-2 flex items-center justify-center text-center bg-gray-800 text-white"
                                 >
-                                    <label for="input-password">
-                                        Password
-                                    </label>
+                                    <label for="input-password"> Password </label>
                                 </dt>
                                 <dd class="p-2 sm:pl-4 flex-grow bg-gray-50">
                                     <input
@@ -309,9 +317,7 @@ const clickResult = (event: Event) => {
                             <dt
                                 class="w-full sm:w-28 py-2 flex items-center justify-center text-center bg-gray-800 text-white"
                             >
-                                <label for="result-htpasswd">
-                                    .htpasswd
-                                </label>
+                                <label for="result-htpasswd"> .htpasswd </label>
                             </dt>
                             <dd class="p-2 sm:pl-4 flex-grow bg-gray-200 flex flex-col justify-center">
                                 <input
@@ -338,9 +344,7 @@ const clickResult = (event: Event) => {
                                 <dt
                                     class="w-full sm:w-32 p-2 flex items-center justify-center text-center bg-gray-800 text-white"
                                 >
-                                    <label for="input-htpasswd-path">
-                                        htpasswdを配置するパス
-                                    </label>
+                                    <label for="input-htpasswd-path"> htpasswdを配置するパス </label>
                                 </dt>
                                 <dd class="p-2 sm:pl-4 flex-grow bg-gray-200">
                                     <input
@@ -356,9 +360,7 @@ const clickResult = (event: Event) => {
                                 <dt
                                     class="w-full sm:w-32 p-2 flex items-center justify-center text-center bg-gray-800 text-white"
                                 >
-                                    <label for="input-authname">
-                                        ダイアログに表示するメッセージ
-                                    </label>
+                                    <label for="input-authname"> ダイアログに表示するメッセージ </label>
                                 </dt>
                                 <dd class="p-2 sm:pl-4 flex-grow bg-gray-50">
                                     <input
@@ -374,9 +376,7 @@ const clickResult = (event: Event) => {
                                 <dt
                                     class="w-full sm:w-32 p-2 flex items-center justify-center text-center bg-gray-800 text-white"
                                 >
-                                    <label for="input-require-ip">
-                                        認証を除外するIP(任意)
-                                    </label>
+                                    <label for="input-require-ip"> 認証を除外するIP(任意) </label>
                                 </dt>
                                 <dd class="p-2 sm:pl-4 flex-grow bg-gray-200">
                                     <textarea
@@ -409,7 +409,9 @@ const clickResult = (event: Event) => {
                             htaccessを作成する
                         </button>
 
-                        <dl class="flex flex-col sm:flex-row items-stretch py-1 mt-2 min-h-52 md:h-52">
+                        <dl
+                            class="flex flex-col sm:flex-row items-stretch py-1 mt-2 min-h-52 md:h-52"
+                        >
                             <dt
                                 class="w-full sm:w-32 p-2 flex items-center justify-center text-center bg-gray-800 text-white"
                             >

@@ -44,22 +44,33 @@ const onClickSend = async () => {
     <main class="w-full">
         <section
             id="blog-list"
-            class="max-w-5xl mx-auto p-4 mt-32"
+            class="max-w-5xl mx-auto p-4 mt-10 sm:mt-32 leading-relaxed"
         >
-            <h1 class="text-4xl sm:text-6xl font-bold mb-8 text-center">
+            <h1 class="text-2xl sm:text-4xl font-bold mb-6 text-center">
                 お問合せ
             </h1>
+            <p style="text-indent: 1rem">
+                サイトやツールに関するご意見、ご要望、不具合報告は以下のフォームからお送りください。<br>
+                問合せを頂いてから1か月以内を目標に回答しますが、以下のような内容には回答しない可能性がございます。
+            </p>
+            <ul class="ml-6 mt-1 list-disc">
+                <li>宗教等に関する内容。</li>
+                <li>誹謗中傷等不適切な内容。</li>
+                <li>サイトやツール、制作物に関係のない内容。</li>
+                <li>メールアドレスに不備がある。</li>
+            </ul>
+            <h2 class="text-xl font-bold p-2 mb-2 mt-4 border-b-2 border-gray-800">
+                お問合せ内容
+            </h2>
             <div
                 v-if="!sended"
-                class="flex flex-col gap-4 p-4 mb-40"
+                class="flex flex-col gap-4 p-4 mb-20 sm:mb-40"
             >
                 <div class="flex flex-col sm:flex-row">
                     <label
                         for="input-name"
                         class="w-full sm:w-1/4"
-                    >
-                        お名前
-                    </label>
+                    > お名前 </label>
                     <input
                         id="input-name"
                         v-model="input.name"
@@ -72,9 +83,7 @@ const onClickSend = async () => {
                     <label
                         for="input-address"
                         class="w-full sm:w-1/4"
-                    >
-                        メールアドレス
-                    </label>
+                    > メールアドレス </label>
                     <input
                         id="input-address"
                         v-model="input.email"
@@ -87,12 +96,11 @@ const onClickSend = async () => {
                     <label
                         for="input-opinion"
                         class="w-full sm:w-1/4"
-                    >
-                        問い合わせ内容
-                    </label>
+                    > 問い合わせ内容 </label>
                     <textarea
                         id="input-opinion"
                         v-model="input.content"
+                        rows="8"
                         class="flex-grow border border-gray-500 rounded shadow"
                         placeholder="ご要望など"
                     />
@@ -103,9 +111,7 @@ const onClickSend = async () => {
                     :disabled="clickSended ? true : false"
                     @click="onClickSend"
                 >
-                    <i class="material-icons mr-2 text-2xl">
-                        mail
-                    </i>
+                    <i class="material-icons mr-2 text-2xl"> mail </i>
                     送信
                 </button>
             </div>

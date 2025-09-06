@@ -2,12 +2,7 @@ import type { NuxtPage } from 'nuxt/schema'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: [
-        '@nuxt/eslint',
-        '@nuxtjs/tailwindcss',
-        '@pinia/nuxt',
-        '@nuxt/image',
-    ],
+    modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', '@nuxt/image', '@pinia/nuxt'],
     plugins: [
         {
             src: '@/plugins/clickOutside.ts',

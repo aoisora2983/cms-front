@@ -17,7 +17,7 @@
     "@nuxt/eslint": "^0.7.5",
     "@nuxt/image": "^1.10.0",
     "@nuxtjs/tailwindcss": "^6.13.1",
-    "@pinia/nuxt": "^0.10.1",
+    "@pinia/nuxt": "0.11.2",
     "@tailwindcss/forms": "^0.5.10",
     "@types/highlight.js": "^10.1.0",
     "@typescript-eslint/parser": "^8.21.0",
@@ -27,8 +27,8 @@
     "eslint": "^9.18.0",
     "highlight.js": "^11.11.1",
     "jwt-decode": "^4.0.0",
-    "nuxt": "^3.15.1",
-    "pinia": "^3.0.1",
+    "nuxt": "^4.1.1",
+    "pinia": "^3.0.3",
     "typescript": "^5.7.3",
     "vue": "latest",
     "vue-router": "latest",
@@ -36,5 +36,8 @@
   },
   "devDependencies": {
     "sass": "^1.83.4"
+  },
+  "overrides": {
+    "vue": "latest"
   }
 }

@@ -36,8 +36,5 @@
   },
   "devDependencies": {
     "sass": "^1.83.4"
-  },
-  "overrides": {
-    "vue": "latest"
   }
 }

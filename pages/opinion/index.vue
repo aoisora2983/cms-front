@@ -107,7 +107,7 @@ const onClickSend = async () => {
                 </div>
                 <button
                     type="button"
-                    class="rounded py-2 bg-black text-white px-4 flex justify-center align-middle"
+                    class="rounded py-2 bg-black text-white px-4 flex justify-center align-middle hover:opacity-50"
                     :disabled="clickSended ? true : false"
                     @click="onClickSend"
                 >

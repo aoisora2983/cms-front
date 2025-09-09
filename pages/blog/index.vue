@@ -7,7 +7,7 @@ useHead({
 })
 
 useSeoMeta({
-    description: `ブログの記事一覧です。`,
+    description: `ブログの記事一覧です。タグをクリックすることで、種類別に記事を絞り込んで表示することも可能です。`,
 })
 const articleList = await getOpenArticleList({
     keyword: null,

@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { getOpenPortfolioList } from '~/api/apis/portfolio/getOpenPortfolioList'
 
+useHead({
+    title: 'WAの技術ブログとポートフォリオサイト',
+})
+
+useSeoMeta({
+    description: `Go、Nuxt、Flutter、PHPなどの技術ブログ。業務での経験に加え、趣味で開発した自作のオンラインツールや、技術的な学びを記録した記事、ポエムを公開しています。`,
+})
+
 const portfolioList = await getOpenPortfolioList()
 </script>
 

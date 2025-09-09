@@ -2,11 +2,11 @@
 import type { Breadcrumb } from '~/api/models/common'
 
 useHead({
-    title: '便利ツール一覧',
+    title: 'ウェブで使える便利ツール一覧',
 })
 
 useSeoMeta({
-    description: `パスワード作成ツールなど、便利ツール一覧です。いいネタが思いつき次第随時更新予定`,
+    description: `サイト制作者に便利なツールを多数公開。パスワード、Basic認証用のhtpasswd, htaccess作成、カスタマイズ可能なQRコード作成ツールなどを無料で提供しています。`,
 })
 
 const breadcrumb: Breadcrumb[] = []

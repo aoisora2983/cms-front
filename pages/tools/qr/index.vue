@@ -5,11 +5,11 @@ import { ErrorMessages } from '~/api/fetch'
 import type { Breadcrumb } from '~/api/models/common'
 
 useHead({
-    title: 'QRコード作成ツール',
+    title: 'カスタマイズ可能なQRコード作成ツール',
 })
 
 useSeoMeta({
-    description: `ロゴ画像や画像の色、ドットの種類をカスタマイズしながらQRコードを作成できるオンラインツールです。`,
+    description: `中心画像やハーフトーン画像を配置して個性的なQRコードが作成できるオンラインツール。背景色やQRコードの色、ドットの形まで自由にカスタマイズ可能。不具合や機能改善の要望も受け付けています。`,
 })
 
 const breadcrumb: Breadcrumb[] = []

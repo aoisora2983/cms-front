@@ -35,9 +35,9 @@ const portfolioList = await getOpenPortfolioList()
             class="min-h-screen flex items-center mb-40 md:mb-0 max-w-5xl mx-auto py-20"
         >
             <div class="flex-grow p-4">
-                <h1 class="text-5xl sm:text-6xl font-bold mb-4 text-center">
+                <h2 class="text-5xl sm:text-6xl font-bold mb-4 text-center">
                     Portfolio
-                </h1>
+                </h2>
                 <p class="mb-8 text-center">
                     作成したサービス集
                 </p>
@@ -46,7 +46,10 @@ const portfolioList = await getOpenPortfolioList()
                         v-for="(portfolio, index) in portfolioList"
                         :key="index"
                     >
-                        <LazyOrganismPortfolioCard :portfolio="portfolio" />
+                        <LazyOrganismPortfolioCard
+                            :portfolio="portfolio"
+                            :h-level="3"
+                        />
                     </li>
                 </ul>
                 <div class="flex justify-center w-full">
@@ -66,13 +69,15 @@ const portfolioList = await getOpenPortfolioList()
         >
             <div class="min-h-screen flex items-center max-w-5xl mx-auto py-20">
                 <div class="flex-grow p-4">
-                    <h1 class="text-5xl sm:text-6xl font-bold mb-4 text-center">
+                    <h2 class="text-5xl sm:text-6xl font-bold mb-4 text-center">
                         Blog
-                    </h1>
+                    </h2>
                     <p class="mb-8 text-center">
                         技術メモやポエムなど
                     </p>
-                    <LazyOrganismBlogCardList />
+                    <LazyOrganismBlogCardList
+                        :h-level="3"
+                    />
                     <AtomLinkButton
                         href="/blog"
                         label="More Detail"

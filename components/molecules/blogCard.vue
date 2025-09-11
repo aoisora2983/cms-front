@@ -7,10 +7,12 @@ import { DATE_FORMAT } from '~/constants/constants'
 interface Props {
     article: Article
     tagLimit?: number
+    hLevel?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
     tagLimit: 10,
+    hLevel: 2,
 })
 const content = props.article.content
 const publishedAt = dayjs(content.published_start_time)
@@ -29,14 +31,17 @@ const thumbnail = content.thumbnail != null ? '/uploader' + content.thumbnail : 
                 height="96"
             />
         </div>
-        <h2 class="text-xl font-bold mb-4">
+        <component
+            :is="'h' + hLevel"
+            class="text-xl font-bold mb-4"
+        >
             <NuxtLink
                 :to="'/blog/page/' + content.id"
                 class="hover:underline whitespace-pre-wrap"
             >
                 {{ content.title }}
             </NuxtLink>
-        </h2>
+        </component>
         <header class="text-right text-sm mb-2">
             <time :datetime="content.published_start_time">
                 {{ publishedAt.format(DATE_FORMAT) }}

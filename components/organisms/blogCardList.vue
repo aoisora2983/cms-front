@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { getOpenArticleList } from '~/api/apis/blog/getOpenArticleList'
 
+interface Props {
+    hLevel?: number
+}
+
+withDefaults(defineProps<Props>(), {
+    hLevel: 2,
+})
+
 const articleList = await getOpenArticleList({
     keyword: null,
     tags: null,
@@ -18,6 +26,7 @@ const articleList = await getOpenArticleList({
             <MoleculeBlogCard
                 :article="article"
                 :tag-limit="2"
+                :h-level="hLevel"
             />
         </li>
     </ul>

@@ -67,6 +67,7 @@ export default defineNuxtConfig({
             copyRight: process.env.NUXT_PUBLIC_COPY_RIGHT || '',
             ga4: process.env.NUXT_PUBLIC_GA4_TAG || '',
             googleAdSense: process.env.NUXT_PUBLIC_GOOGLE_ADSENSE || '',
+            googleSearch: process.env.NUXT_PUBLIC_GOOGLE_SEARCH || '',
         },
     },
     routeRules: {

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getTagList } from '~/api/apis/blog/getTagList'
+
 interface Header {
     label: string
     url: string
@@ -16,6 +18,10 @@ const headers: Header[] = [
 const route = useRoute()
 const isOpen = ref(false)
 const config = useRuntimeConfig()
+const openSearch = ref(false)
+const searchKeyword = ref('')
+
+const tagList = await getTagList()
 
 const isActive = (url: string, strict: boolean) => {
     if (strict) {
@@ -35,13 +41,34 @@ const isActive = (url: string, strict: boolean) => {
 const onClickOutside = () => {
     isOpen.value = false
 }
+
+const keydownSearch = async (event: KeyboardEvent) => {
+    if (!event) {
+        return
+    }
+
+    if (!event.code) {
+        return
+    }
+
+    if (event.code == 'Enter') {
+        onClickSearch()
+    }
+}
+
+const onClickSearch = async () => {
+    if (searchKeyword.value != '') {
+        openSearch.value = false
+        await navigateTo('/search/?q=' + searchKeyword.value)
+    }
+}
 </script>
 
 <template>
     <header class="bg-white border-b-2 fixed w-full top-0 z-50 h-20">
         <div
             v-click-outside="onClickOutside"
-            class="max-w-5xl pt-8 pb-4 px-4 lg:px-8 items-center justify-between mx-auto grid grid-cols-2"
+            class="max-w-5xl pt-8 pb-1 px-4 lg:px-8 items-center justify-between mx-auto grid grid-cols-2"
         >
             <div>
                 <NuxtLink
@@ -54,48 +81,154 @@ const onClickOutside = () => {
                     />
                 </NuxtLink>
             </div>
-            <nav>
-                <input
-                    id="accordion"
-                    v-model="isOpen"
-                    type="checkbox"
-                    class="hidden"
-                >
-                <label
-                    id="accordion-label"
-                    for="accordion"
-                >
-                    <span /><span /><span />
-                </label>
-                <ul
-                    class="accordion-target lg:flex lg:justify-end lg:text-lg"
-                >
-                    <li
-                        v-for="(header, index) in headers"
-                        :key="index"
+            <nav class="flex justify-end items-center">
+                <div class="flex items-center mr-4 rounded-full border-gray-400 border-2">
+                    <button
+                        class="flex items-center"
+                        @click="openSearch = !openSearch"
                     >
-                        <NuxtLink
-                            v-if="!isActive(header.url, header.strict)"
-                            class="hover:opacity-80 px-4 py-2 rounded-full flex justify-start items-center"
-                            :to="header.url"
-                        >
-                            <i class="material-icons mr-2 text-2xl">{{ header.icon }}</i>
-                            <span>
-                                {{ header.label }}
-                            </span>
-                        </NuxtLink>
                         <span
-                            v-else
-                            class="px-4 py-2 opacity-50 flex justify-start items-center"
+                            class="py-1 border-none w-12 rounded-l-full"
+                            type="text"
                         >
-                            <i class="material-icons mr-2 text-2xl">{{ header.icon }}</i>
-                            <span>
-                                {{ header.label }}
-                            </span>
+                            _
                         </span>
-                    </li>
-                </ul>
+                        <i class="py-1 px-2 material-icons text-2xl">search</i>
+                    </button>
+                </div>
+
+                <div>
+                    <input
+                        id="accordion"
+                        v-model="isOpen"
+                        type="checkbox"
+                        class="hidden"
+                    >
+                    <label
+                        id="accordion-label"
+                        for="accordion"
+                    >
+                        <span /><span /><span />
+                    </label>
+                    <ul
+                        class="accordion-target lg:flex lg:justify-end lg:text-lg"
+                    >
+                        <li
+                            v-for="(header, index) in headers"
+                            :key="index"
+                        >
+                            <NuxtLink
+                                v-if="!isActive(header.url, header.strict)"
+                                class="hover:opacity-80 px-4 py-2 rounded-full flex justify-start items-center"
+                                :to="header.url"
+                            >
+                                <i class="material-icons mr-2 text-2xl">{{ header.icon }}</i>
+                                <span>
+                                    {{ header.label }}
+                                </span>
+                            </NuxtLink>
+                            <span
+                                v-else
+                                class="px-4 py-2 opacity-50 flex justify-start items-center"
+                            >
+                                <i class="material-icons mr-2 text-2xl">{{ header.icon }}</i>
+                                <span>
+                                    {{ header.label }}
+                                </span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
             </nav>
+        </div>
+        <div
+            :class="openSearch ? '' : 'hidden'"
+            class="w-screen h-screen bg-stone-100 absolute top-0"
+        >
+            <div class="mt-20 max-w-4xl pt-8 pb-1 px-4 lg:px-8 items-center justify-between mx-auto relative">
+                <button
+                    class="absolute right-0 top-0 mr-8"
+                    type="button"
+                    @click="openSearch=false"
+                >
+                    <i class="pr-2 py-2 material-icons text-2xl">close</i>
+                </button>
+                <form
+                    v-if="config.public.googleSearch !== ''"
+                    class="flex flex-col sm:flex-row items-center justify-center"
+                    action="/search"
+                >
+                    <label
+                        for="input-search-keyword"
+                        class="flex items-center mr-0 sm:mr-4 w-full sm:w-auto"
+                    >
+                        <i class="pr-2 py-2 material-icons text-2xl">search</i>
+                        サイト内検索
+                    </label>
+                    <div class="rounded flex items-center border border-stone-800 w-full sm:w-auto">
+                        <input
+                            id="input-search-keyword"
+                            v-model="searchKeyword"
+                            type="text"
+                            placeholder="キーワードを入力"
+                            class="border-none rounded-l flex-grow w-40"
+                            @keydown="keydownSearch"
+                        >
+                        <button
+                            class="whitespace-nowrap bg-stone-600 text-white py-2 px-6 box-border border-2 border-stone-600 focus:border-2 focus:border-orange-400 w-max"
+                            @click="onClickSearch"
+                        >
+                            検索
+                        </button>
+                    </div>
+                    <input
+                        v-model="searchKeyword"
+                        type="hidden"
+                        name="q"
+                    >
+                    <input
+                        type="hidden"
+                        name="cx"
+                        :value="config.public.googleSearch"
+                    >
+                    <input
+                        type="hidden"
+                        name="ie"
+                        value="UTF-8"
+                    >
+                </form>
+                <div class="mt-6">
+                    <h2
+                        class="flex items-center w-full"
+                    >
+                        <i class="pr-2 py-2 material-icons text-2xl">sell</i>
+                        タグ
+                    </h2>
+                    <ul class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <li
+                            v-for="(tag, index) in tagList"
+                            :key="index"
+                        >
+                            <NuxtLink
+                                :to="'/blog/tag/' + tag.id"
+                                class="block rounded border w-full bg-white h-full p-4"
+                                @click="openSearch = !openSearch"
+                            >
+                                <NuxtImg
+                                    :alt="tag.label + 'のアイコン'"
+                                    :src="'/uploader' + tag.icon_path"
+                                    class="block bg-white p-1 w-7 h-7 mr-2 text-center"
+                                    width="100"
+                                    height="100"
+                                />
+                                <h3 class="text-center mt-4">
+                                    {{ tag.label }}
+                                </h3>
+                            </NuxtLink>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </header>
 </template>

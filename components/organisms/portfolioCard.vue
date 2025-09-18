@@ -18,6 +18,7 @@ withDefaults(defineProps<Props>(), {
                 <NuxtImg
                     :alt="portfolio.title + 'の画像'"
                     :src="'/uploader' + portfolio.thumbnail"
+                    class="w-full"
                     width="1454"
                     height="965"
                 />

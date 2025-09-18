@@ -45,9 +45,8 @@ body {
 /* cssだけのアコーディオン動作処理 */
 @media (max-width: 1024px) {
     #accordion-label {
-        position: absolute;
-        top: 32px;
-        right: 32px;
+        position: relative;
+        display: block;
         cursor: pointer;
         width: 32px;
         height: 24px;

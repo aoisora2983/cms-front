@@ -31,6 +31,7 @@ export default defineNuxtConfig({
         head: {
             htmlAttrs: {
                 lang: 'ja',
+                prefix: 'og: https://ogp.me/ns#',
             },
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
@@ -46,6 +47,18 @@ export default defineNuxtConfig({
                 {
                     name: 'format-detection',
                     content: 'telephone=no',
+                },
+                {
+                    name: 'og:type',
+                    content: 'website',
+                },
+                {
+                    name: 'og:site_name',
+                    content: process.env.NUXT_PUBLIC_SITE_TITLE,
+                },
+                {
+                    name: 'og:image',
+                    content: process.env.NUXT_PUBLIC_IMAGE_URL + '/img/logo.webp',
                 },
             ],
             link: [

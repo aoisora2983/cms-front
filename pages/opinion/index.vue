@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { registerOpinion } from '~/api/apis/opinion/registerOpinion'
 
+const title = 'サイトに関するご意見・お問合せ・不具合等の送信フォーム'
+const description = 'サイトやツールに関するご意見・お問合せ・不具合報告はこちらのフォームから送信してください。1か月以内を目標に回答しますが、不適切な内容には回答しない可能性があることをご了承ください。'
+
 useHead({
-    title: 'お問合せ',
+    title: title,
+    meta: [
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+    ],
 })
 
 useSeoMeta({
-    description: `お問合せはこちらから。`,
+    description: description,
 })
 
 const loading = useLoading()

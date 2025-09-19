@@ -37,6 +37,10 @@ interface Head {
 const headList: Array<Head> = []
 $('h2,h3').each((index, elm) => {
     const tmp = elm.name.match(/h([0-9])/)
+    if (!tmp || typeof tmp[1] == 'undefined') {
+        return true
+    }
+
     const level = tmp ? parseInt(tmp[1]) : 2
     const id = 'fragment-head' + level + '-' + index
     $(elm).attr('id', id)
@@ -50,14 +54,25 @@ $('h2,h3').each((index, elm) => {
         headList.push(_head)
     }
     else {
-        headList[headList.length - 1].children.push(_head)
+        const index = headList.length - 1
+        if (typeof headList[index] == 'undefined') {
+            return true
+        }
+
+        headList[index].children.push(_head)
     }
 })
 
 const html = $('body').html()
 
+const config = useRuntimeConfig()
 useHead({
     title: `${article.content.title}`,
+    meta: [
+        { property: 'og:title', content: article.content.title },
+        { property: 'og:description', content: article.content.description },
+        { property: 'og:image', content: config.public.imageUrl + article.content.thumbnail },
+    ],
 })
 useSeoMeta({
     description: `${article.content.description}`,

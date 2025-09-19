@@ -25,12 +25,21 @@ if (articleList.total == 0) {
     })
 }
 
+const title = `${tag.label}に関連する記事一覧`
+const description = `${tag.label}に関連する記事の一覧です。不具合対処の備忘録や、便利なテクニック、ポエム等を掲載しています。`
+
+const config = useRuntimeConfig()
 useHead({
-    title: `${tag.label}の記事一覧`,
+    title: title,
+    meta: [
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+        { property: 'og:image', content: config.public.imageUrl + tag.icon_path },
+    ],
 })
 
 useSeoMeta({
-    description: `${tag.label}に関連する記事の一覧です。`,
+    description: description,
 })
 
 const breadcrumb: Breadcrumb[] = []

@@ -2,6 +2,15 @@
 const config = useRuntimeConfig()
 const route = useRoute()
 
+const url = useRequestURL()
+const getCanonicalPath = (path: string) => {
+    if (path.endsWith('/')) {
+        path = path.slice(0, -1)
+    }
+    const baseUrl = url.protocol + '//' + url.host
+    return baseUrl + path
+}
+
 const scripts: { type: string, async?: boolean, src?: string, innerHTML?: string }[] = []
 if (config.public.ga4 != '') {
     scripts.push({
@@ -32,6 +41,11 @@ if (config.public.googleAdSense != '') {
     })
 }
 
+metaList.push({
+    property: 'og:url',
+    content: getCanonicalPath(route.path),
+})
+
 useHead({
     titleTemplate: (titleChunk) => {
         return titleChunk
@@ -41,14 +55,7 @@ useHead({
     script: scripts,
     meta: metaList,
 })
-const url = useRequestURL()
-const getCanonicalPath = (path: string) => {
-    if (path.endsWith('/')) {
-        path = path.slice(0, -1)
-    }
-    const baseUrl = url.protocol + '//' + url.host
-    return baseUrl + path
-}
+
 useHead(() => ({
     link: [
         {

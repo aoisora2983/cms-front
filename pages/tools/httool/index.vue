@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import type { Breadcrumb } from '~/api/models/common'
 
+const title = 'カスタマイズ可能なhtpasswd,htaccess作成ツール'
+const description = 'オンラインでBASIC認証用のhtpasswd,htaccessを作成するツールです。パスワードをランダムに設定することも可能です。'
+
 useHead({
-    title: 'htpasswd,htaccess作成ツール',
+    title: title,
+    meta: [
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+    ],
 })
 
 useSeoMeta({
-    description: `オンラインでBASIC認証用のhtpasswd,htaccessを作成するツールです`,
+    description: description,
 })
 
 const breadcrumb: Breadcrumb[] = []

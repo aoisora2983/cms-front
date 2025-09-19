@@ -31,6 +31,7 @@ export default defineNuxtConfig({
         head: {
             htmlAttrs: {
                 lang: 'ja',
+                prefix: 'og: https://ogp.me/ns#',
             },
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
@@ -46,6 +47,18 @@ export default defineNuxtConfig({
                 {
                     name: 'format-detection',
                     content: 'telephone=no',
+                },
+                {
+                    property: 'og:type',
+                    content: 'website',
+                },
+                {
+                    property: 'og:site_name',
+                    content: process.env.NUXT_PUBLIC_SITE_TITLE,
+                },
+                {
+                    property: 'og:image',
+                    content: process.env.NUXT_PUBLIC_IMAGE_URL + '/img/logo.webp',
                 },
             ],
             link: [
@@ -64,6 +77,7 @@ export default defineNuxtConfig({
             siteTitle: process.env.NUXT_PUBLIC_SITE_TITLE || '',
             siteDescription: process.env.NUXT_PUBLIC_SITE_DESCRIPTION || '',
             apiUrl: process.env.NUXT_PUBLIC_API_URL || '',
+            imageUrl: process.env.NUXT_PUBLIC_IMAGE_URL || '',
             copyRight: process.env.NUXT_PUBLIC_COPY_RIGHT || '',
             ga4: process.env.NUXT_PUBLIC_GA4_TAG || '',
             googleAdSense: process.env.NUXT_PUBLIC_GOOGLE_ADSENSE || '',

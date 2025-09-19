@@ -54,7 +54,7 @@ const thumbnail = content.thumbnail != null ? '/uploader' + content.thumbnail : 
             <div class="flex mb-2">
                 <ul class="flex flex-wrap gap-2 mb-2">
                     <li
-                        v-for="(tag, index) in props.article.tags.slice(0, tagLimit)"
+                        v-for="(tag, index) in article.tags.slice(0, tagLimit)"
                         :key="index"
                     >
                         <AtomTag
@@ -68,7 +68,7 @@ const thumbnail = content.thumbnail != null ? '/uploader' + content.thumbnail : 
             <div class="flex items-center justify-end">
                 <i class="material-icons mr-1 text-lg text-pink-600">favorite</i>
                 <span class="w-6 text-right">
-                    {{ props.article.meta.article_good ?? 0 }}
+                    {{ article.meta.article_good ?? 0 }}
                 </span>
             </div>
         </footer>

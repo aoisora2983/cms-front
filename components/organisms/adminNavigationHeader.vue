@@ -66,56 +66,61 @@ const onClickOutside = () => {
                     />
                 </NuxtLink>
             </div>
-            <nav v-if="authenticated()">
-                <input
-                    id="accordion"
-                    v-model="isOpen"
-                    type="checkbox"
-                    class="hidden"
-                >
-                <label
-                    id="accordion-label"
-                    for="accordion"
-                >
-                    <span /><span /><span />
-                </label>
-                <ul class="accordion-target lg:flex lg:justify-end lg:text-md">
-                    <li
-                        v-for="(header, index) in headers"
-                        :key="index"
+            <nav
+                v-if="authenticated()"
+                class="flex justify-end items-center"
+            >
+                <div>
+                    <input
+                        id="accordion"
+                        v-model="isOpen"
+                        type="checkbox"
+                        class="hidden"
                     >
-                        <NuxtLink
-                            v-if="!isActive(header.url)"
-                            class="hover:opacity-80 px-4 py-2 rounded-full flex justify-start items-center"
-                            :to="header.url"
+                    <label
+                        id="accordion-label"
+                        for="accordion"
+                    >
+                        <span /><span /><span />
+                    </label>
+                    <ul class="accordion-target lg:flex lg:justify-end lg:text-md">
+                        <li
+                            v-for="(header, index) in headers"
+                            :key="index"
                         >
-                            <i class="material-icons mr-2 text-2xl">{{ header.icon }}</i>
-                            <span>
-                                {{ header.label }}
+                            <NuxtLink
+                                v-if="!isActive(header.url)"
+                                class="hover:opacity-80 px-4 py-2 rounded-full flex justify-start items-center"
+                                :to="header.url"
+                            >
+                                <i class="material-icons mr-2 text-2xl">{{ header.icon }}</i>
+                                <span>
+                                    {{ header.label }}
+                                </span>
+                            </NuxtLink>
+                            <span
+                                v-else
+                                class="px-4 py-2 opacity-60 flex justify-start items-center"
+                            >
+                                <i class="material-icons mr-2 text-2xl">{{ header.icon }}</i>
+                                <span>
+                                    {{ header.label }}
+                                </span>
                             </span>
-                        </NuxtLink>
-                        <span
-                            v-else
-                            class="px-4 py-2 opacity-60 flex justify-start items-center"
-                        >
-                            <i class="material-icons mr-2 text-2xl">{{ header.icon }}</i>
-                            <span>
-                                {{ header.label }}
-                            </span>
-                        </span>
-                    </li>
-                    <li>
-                        <a
-                            class="hover:opacity-80 px-4 py-2 rounded-full flex justify-start items-center"
-                            @click="onClickLogout()"
-                        >
-                            <i class="material-icons mr-2 text-2xl">logout</i>
-                            <span>
-                                Logout
-                            </span>
-                        </a>
-                    </li>
-                </ul>
+                        </li>
+                        <li>
+                            <a
+                                class="hover:opacity-80 px-4 py-2 rounded-full flex justify-start items-center"
+                                @click="onClickLogout()"
+                            >
+                                <i class="material-icons mr-2 text-2xl">logout</i>
+                                <span>
+                                    Logout
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </nav>
         </div>
     </header>

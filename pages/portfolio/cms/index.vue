@@ -2,9 +2,21 @@
 import type { Breadcrumb } from '~/api/models/common'
 
 const config = useRuntimeConfig()
+const title = 'Nuxt × Golangで作ったCMSの紹介ページ'
+const description = 'フロントをNuxt、APIをGolangで作ったCMSの紹介ページ。モダンな言語を使っていて、高速かつ低学習コストで作れるのが特徴です。'
 
+const url = useRequestURL()
 useHead({
-    title: 'CMS',
+    title: title,
+    meta: [
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+        { property: 'og:image', content: config.public.imageUrl + '/img/cms_mockup.webp' },
+    ],
+})
+
+useSeoMeta({
+    description: description,
 })
 
 const services = [

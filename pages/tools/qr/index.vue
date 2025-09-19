@@ -4,12 +4,19 @@ import { getQr } from '~/api/apis/tool/getQr'
 import { ErrorMessages } from '~/api/fetch'
 import type { Breadcrumb } from '~/api/models/common'
 
+const title = 'カスタマイズ可能なQRコード作成ツール'
+const description = '中心画像やハーフトーン画像を配置して個性的なQRコードが作成できるオンラインツール。背景色やQRコードの色、ドットの形まで自由にカスタマイズ可能。不具合や機能改善の要望も受け付けています'
+
 useHead({
-    title: 'カスタマイズ可能なQRコード作成ツール',
+    title: title,
+    meta: [
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+    ],
 })
 
 useSeoMeta({
-    description: `中心画像やハーフトーン画像を配置して個性的なQRコードが作成できるオンラインツール。背景色やQRコードの色、ドットの形まで自由にカスタマイズ可能。不具合や機能改善の要望も受け付けています。`,
+    description: description,
 })
 
 const breadcrumb: Breadcrumb[] = []
@@ -85,7 +92,7 @@ const fileupload = async (event: Event, ref: globalThis.Ref<string, string>) => 
     const target = event.target as HTMLInputElement
     const files = target.files
 
-    if (files) {
+    if (files && typeof files[0] !== 'undefined') {
         const formData = new FormData()
         formData.append('file', files[0])
         ref.value = files[0].name

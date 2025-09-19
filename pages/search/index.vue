@@ -1,8 +1,15 @@
 <script setup lang="ts">
 const config = useRuntimeConfig()
 
+const title = 'サイト内検索結果(Google Programmable Search Engine)'
+const description = 'Googleの「Programmable Search Engine」を使ったサイト内の検索結果です。'
+
 useHead({
-    title: '検索結果',
+    title: title,
+    meta: [
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+    ],
     script: [
         {
             async: true,
@@ -12,7 +19,7 @@ useHead({
 })
 
 useSeoMeta({
-    description: `検索結果`,
+    description: description,
 })
 </script>
 

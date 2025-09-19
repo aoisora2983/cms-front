@@ -52,15 +52,16 @@ const keydownSearch = async (event: KeyboardEvent) => {
     }
 
     if (event.code == 'Enter') {
-        onClickSearch()
+        searchGoogle()
     }
 }
 
-const onClickSearch = async () => {
-    if (searchKeyword.value != '') {
-        openSearch.value = false
-        await navigateTo('/search/?q=' + searchKeyword.value)
-    }
+const searchGoogle = () => {
+    let query = 'q=' + searchKeyword.value
+    query += '&cx=' + config.public.googleSearch
+    query += '&ie=UTF-8'
+    navigateTo('/search?' + query, { external: true })
+    openSearch.value = false
 }
 </script>
 
@@ -143,20 +144,22 @@ const onClickSearch = async () => {
         </div>
         <div
             :class="openSearch ? '' : 'hidden'"
-            class="w-screen h-screen bg-stone-100 absolute top-0"
+            class="w-screen h-screen bg-stone-100 absolute top-0 overflow-y-auto"
+            style="z-index: 101"
         >
-            <div class="mt-20 max-w-4xl pt-8 pb-1 px-4 lg:px-8 items-center justify-between mx-auto relative">
+            <div class="max-w-4xl pt-8 pb-1 px-4 lg:px-8 items-center justify-between mx-auto relative">
                 <button
-                    class="absolute right-0 top-0 mr-8"
+                    class="absolute right-0 top-0 mt-10 mr-8 rounded-full bg-stone-600 hover:opacity-60"
                     type="button"
                     @click="openSearch=false"
                 >
-                    <i class="pr-2 py-2 material-icons text-2xl">close</i>
+                    <i class="p-2 material-icons text-2xl text-white">close</i>
                 </button>
                 <form
                     v-if="config.public.googleSearch !== ''"
-                    class="flex flex-col sm:flex-row items-center justify-center"
+                    class="mt-10 sm:mt-20 flex flex-col sm:flex-row items-center justify-center"
                     action="/search"
+                    @submit.prevent
                 >
                     <label
                         for="input-search-keyword"
@@ -165,7 +168,7 @@ const onClickSearch = async () => {
                         <i class="pr-2 py-2 material-icons text-2xl">search</i>
                         サイト内検索
                     </label>
-                    <div class="rounded flex items-center border border-stone-800 w-full sm:w-auto">
+                    <div class="rounded flex flex-grow items-center border border-stone-800 w-full sm:w-auto">
                         <input
                             id="input-search-keyword"
                             v-model="searchKeyword"
@@ -175,29 +178,14 @@ const onClickSearch = async () => {
                             @keydown="keydownSearch"
                         >
                         <button
-                            class="whitespace-nowrap bg-stone-600 text-white py-2 px-6 box-border border-2 border-stone-600 focus:border-2 focus:border-orange-400 w-max"
-                            @click="onClickSearch"
+                            class="whitespace-nowrap bg-stone-600 text-white py-2 px-6 box-border border-2 border-stone-600 focus:border-2 focus:border-orange-400 w-max hover:opacity-60"
+                            @click="searchGoogle"
                         >
                             検索
                         </button>
                     </div>
-                    <input
-                        v-model="searchKeyword"
-                        type="hidden"
-                        name="q"
-                    >
-                    <input
-                        type="hidden"
-                        name="cx"
-                        :value="config.public.googleSearch"
-                    >
-                    <input
-                        type="hidden"
-                        name="ie"
-                        value="UTF-8"
-                    >
                 </form>
-                <div class="mt-6">
+                <div class="mt-6 mb-20">
                     <h2
                         class="flex items-center w-full"
                     >
@@ -208,23 +196,14 @@ const onClickSearch = async () => {
                         <li
                             v-for="(tag, index) in tagList"
                             :key="index"
+                            class="my-2"
                         >
-                            <NuxtLink
-                                :to="'/blog/tag/' + tag.id"
-                                class="block rounded border w-full bg-white h-full p-4"
-                                @click="openSearch = !openSearch"
-                            >
-                                <NuxtImg
-                                    :alt="tag.label + 'のアイコン'"
-                                    :src="'/uploader' + tag.icon_path"
-                                    class="block bg-white p-1 w-7 h-7 mr-2 text-center"
-                                    width="100"
-                                    height="100"
-                                />
-                                <h3 class="text-center mt-4">
-                                    {{ tag.label }}
-                                </h3>
-                            </NuxtLink>
+                            <AtomTag
+                                :id="tag.id"
+                                :label="tag.label"
+                                :icon="tag.icon_path"
+                                @click="openSearch=false"
+                            />
                         </li>
                     </ul>
                 </div>

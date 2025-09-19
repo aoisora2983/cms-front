@@ -2,12 +2,19 @@
 import { getOpenArticleList } from '~/api/apis/blog/getOpenArticleList'
 import type { Breadcrumb } from '~/api/models/common'
 
+const title = `ブログ記事一覧 - 備忘録・技術・ポエム等`
+const description = `ブログ記事の一覧です。不具合対処の備忘録や、便利なテクニック、ポエム等を掲載しています。キーワードやタグを使って記事を絞り込んで探すこともできます。`
+
 useHead({
-    title: 'ブログ記事一覧',
+    title: title,
+    meta: [
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+    ],
 })
 
 useSeoMeta({
-    description: `ブログの記事一覧です。タグをクリックすることで、種類別に記事を絞り込んで表示することも可能です。`,
+    description: description,
 })
 
 const breadcrumb: Breadcrumb[] = []
@@ -48,6 +55,10 @@ const keydownSearch = async (event: KeyboardEvent) => {
 }
 
 const onClickSearch = async () => {
+    articleList.value = {
+        articles: [],
+        total: 0,
+    }
     articleList.value = await getArticle()
 }
 </script>

@@ -2,12 +2,19 @@
 import { getOpenPortfolioList } from '~/api/apis/portfolio/getOpenPortfolioList'
 import type { Breadcrumb } from '~/api/models/common'
 
+const title = '作成したシステムやサービス（ポートフォリオ）一覧ページ'
+const description = '作成したシステムやサービス（ポートフォリオ）の一覧ページです。新しい制作物ができ次第追加予定。'
+
 useHead({
-    title: 'ポートフォリオ一覧',
+    title: title,
+    meta: [
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+    ],
 })
 
 useSeoMeta({
-    description: `ポートフォリオ一覧です。`,
+    description: description,
 })
 
 const portfolioList = await getOpenPortfolioList()

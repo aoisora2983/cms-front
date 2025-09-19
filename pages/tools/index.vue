@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import type { Breadcrumb } from '~/api/models/common'
 
+const title = 'ウェブで使える便利ツール一覧'
+const description = 'サイト制作者に便利なツールを多数公開。パスワード、Basic認証用のhtpasswd, htaccess作成、カスタマイズ可能なQRコード作成ツールなどを無料で提供しています。'
+
 useHead({
-    title: 'ウェブで使える便利ツール一覧',
+    title: title,
+    meta: [
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+    ],
 })
 
 useSeoMeta({
-    description: `サイト制作者に便利なツールを多数公開。パスワード、Basic認証用のhtpasswd, htaccess作成、カスタマイズ可能なQRコード作成ツールなどを無料で提供しています。`,
+    description: description,
 })
 
 const breadcrumb: Breadcrumb[] = []

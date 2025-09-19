@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import type { Breadcrumb } from '~/api/models/common'
 
+const title = 'カスタマイズ可能なパスワード作成ツール'
+const description = '文字数、個数、含める文字の種類など、様々な条件を指定してパスワードを複数個作成できるオンラインツールです。'
+
 useHead({
-    title: 'パスワード作成ツール',
+    title: title,
+    meta: [
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+    ],
 })
 
 useSeoMeta({
-    description: `文字数、個数、含める文字の種類など、様々な条件を指定してパスワードを複数個作成できるオンラインツールです。`,
+    description: description,
 })
 
 const breadcrumb: Breadcrumb[] = []
@@ -185,6 +192,10 @@ const generatePassword = () => {
     }
     else {
         size = customPasswordLength.value
+    }
+
+    if (typeof size == 'undefined') {
+        size = initialParam.custom_password_length
     }
 
     if (validationSize(size, string)) {

@@ -112,6 +112,7 @@
     blockquote {
         font-style: italic;
         padding: 8px;
+        margin: 8px;
         background: oklch(96.7% 0.003 264.542);
         border-left: 4px solid oklch(70.5% 0.015 286.067);
     }
@@ -132,7 +133,7 @@
     }
 
     figcaption {
-        display: table-caption;
+        display: block;
     }
 
     // hihglight.jsのアクセシビリティNG項目の補正

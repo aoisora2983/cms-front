@@ -7,6 +7,7 @@ import {
     Image, ImageToolbar, ImageResize, ImageStyle, ImageCaption, ImageInsert, ImageResizeEditing, ImageResizeHandles, SimpleUploadAdapter,
     Link, AutoLink, LinkImage,
     SourceEditing, GeneralHtmlSupport, CodeBlock,
+    Code,
 } from 'ckeditor5'
 import coreTranslations from 'ckeditor5/translations/ja.js'
 import { Ckeditor } from '@ckeditor/ckeditor5-vue'
@@ -37,7 +38,7 @@ const config = computed(() => {
             FindAndReplace, SelectAll, List, BlockQuote, Alignment,
             Table, TableToolbar, TableCaption, TableColumnResize, TableCellProperties,
             Image, ImageToolbar, ImageResize, ImageStyle, ImageCaption, ImageInsert, ImageResizeEditing, ImageResizeHandles, SimpleUploadAdapter,
-            SourceEditing, GeneralHtmlSupport, CodeBlock,
+            SourceEditing, GeneralHtmlSupport, Code, CodeBlock,
         ],
         toolbar: [
             'sourceEditing',
@@ -49,7 +50,7 @@ const config = computed(() => {
             '|', 'alignment',
             '|', 'imageUpload',
             '|', 'link',
-            '|', 'codeBlock',
+            '|', 'code', 'codeBlock',
             '|', 'insertTable',
             '|', 'removeFormat', 'findAndReplace', 'selectAll', 'subscript', 'superscript',
         ],

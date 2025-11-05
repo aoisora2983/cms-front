@@ -117,6 +117,17 @@
         border-left: 4px solid oklch(70.5% 0.015 286.067);
     }
 
+    code {
+        margin: 0 4px;
+    }
+
+    code:not(.hljs) {
+        border: 1px solid #eee;
+        border-radius: 5px;
+        padding: 4px;
+        background: #eee;
+    }
+
     // table
     table {
         width: 100%;

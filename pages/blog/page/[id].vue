@@ -20,10 +20,12 @@ const updatedAt = dayjs(article.content.published_updated_time)
 // highligh対象の内容を加工
 const tmpHtml = '<body>' + article.content.content + '</body>'
 const $ = cheerio.load(tmpHtml)
-$('code').each((_, elm) => {
-    const result = hljs.highlightAuto($(elm).text()).value
-    $(elm).html(result)
-    $(elm).addClass('hljs')
+$('pre').each((_, elm) => {
+    $(elm).find('code').each((_, code) => {
+        const result = hljs.highlightAuto($(code).text()).value
+        $(code).html(result)
+        $(code).addClass('hljs')
+    })
 })
 
 // 見出しリストを作成

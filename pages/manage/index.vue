@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ErrorMessages } from '~/api/fetch'
 
 definePageMeta({ layout: 'admin' })

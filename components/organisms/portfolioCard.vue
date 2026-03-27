@@ -12,7 +12,7 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-    <article class="p-8 border rounded h-full flex flex-col justify-between">
+    <article class="p-8 border rounded h-full flex flex-col justify-between bg-white">
         <div class="mb-8">
             <div class="mb-2 flex items-center justify-center">
                 <NuxtImg

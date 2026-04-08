@@ -3,7 +3,7 @@ import type { Articles } from '~/api/models/blog/article'
 
 export type GetArticleRequest = {
     keyword: string | null
-    categories: Array<number> | null
+    statuses: Array<number> | null
     tags: Array<number> | null
     limit: number | null
     page: number | null

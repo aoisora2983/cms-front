@@ -45,6 +45,7 @@ async function execute$fetch<T>(path: string, config: RequestInit): Promise<T> {
         {
             method: config.method as 'GET' | 'HEAD' | 'PATCH' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'get' | 'head' | 'patch' | 'post' | 'put' | 'delete' | 'connect' | 'options' | 'trace' | undefined,
             headers: config.headers,
+            credentials: config.credentials,
             body: config.body,
             async onResponse({ response }) {
                 if (!response.ok) {
@@ -130,14 +131,12 @@ async function executeUseFetch<T>(path: string, config: UseFetchOptions<T>): Pro
 
 function buildCredentials(
     credentials?: Request['credentials'],
-): Request['credentials'] | undefined {
+): RequestCredentials | undefined {
     if (process.env.NODE_ENV !== 'development') {
         return undefined
     }
 
-    // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-
-    return credentials
+    return typeof credentials !== 'undefined' ? credentials : 'include'
 }
 
 // リクエストヘッダを構築

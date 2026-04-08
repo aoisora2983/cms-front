@@ -161,4 +161,31 @@
     .hljs-link {
         color: oklch(71.2% 0.194 13.428);
     }
+
+    // hihglight.jsにコピーボタン追加
+    pre {
+        position: relative;
+
+        .hljs {
+            padding-top: 48px;
+        }
+
+        .code-copy {
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: #fff;
+            padding: 16px;
+            cursor: pointer;
+        }
+
+        .code-copy:hover {
+            opacity: 0.5;
+        }
+    }
+
+    // 画像の境目が分かるように線を引いておく
+    img {
+        border: #333 1px solid;
+    }
 }

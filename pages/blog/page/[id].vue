@@ -25,6 +25,42 @@ $('pre').each((_, elm) => {
         const result = hljs.highlightAuto($(code).text()).value
         $(code).html(result)
         $(code).addClass('hljs')
+
+        const button = $('<button class="code-copy"><i class="material-icons">copy_all</i></button>')
+
+        $(code).closest('pre').append(button)
+    })
+})
+
+const copiedOpacity = ref(0)
+const clickCodeCopy = (event: PointerEvent) => {
+    const target = event.currentTarget as HTMLElement
+    const code = target.closest('pre')?.querySelector('.hljs')
+    if (code) {
+        const copiedText = code.textContent
+        navigator.clipboard.writeText(copiedText).then(() => {
+            copiedOpacity.value = 100
+            setTimeout(function () {
+                fadeoutCopied()
+            }, 1000)
+        })
+    }
+}
+
+const fadeoutCopied = () => {
+    copiedOpacity.value -= 2
+    if (copiedOpacity.value > 0) {
+        setTimeout(function () {
+            fadeoutCopied()
+        }, 10)
+    }
+}
+
+onMounted(() => {
+    // マウント後に要素を取得
+    const copies = document.querySelectorAll('.code-copy')
+    copies.forEach((copy) => {
+        copy.addEventListener('click', clickCodeCopy as EventListener)
     })
 })
 
@@ -196,5 +232,17 @@ breadcrumb.push({
                 :replay-id="0"
             />
         </section>
+
+        <div
+            :style="'opacity: ' + copiedOpacity + '%'"
+            class="fixed bottom-10 left-0 right-0 flex justify-center"
+        >
+            <p
+                class="w-max text-white py-2 px-4 rounded bg-gray-700 text-center flex items-center"
+            >
+                <i class="material-icons mr-2 text-xl">check</i>
+                コピーしました！
+            </p>
+        </div>
     </main>
 </template>

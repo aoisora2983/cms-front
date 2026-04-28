@@ -26,7 +26,7 @@ const thumbnail = content.thumbnail != null ? '/uploader' + content.thumbnail : 
             <NuxtImg
                 :alt="content.title + 'のサムネイル画像'"
                 :src="thumbnail"
-                class="h-24 w-24"
+                class="h-24 w-24 object-contain"
                 width="96"
                 height="96"
             />
@@ -37,7 +37,7 @@ const thumbnail = content.thumbnail != null ? '/uploader' + content.thumbnail : 
         >
             <NuxtLink
                 :to="'/blog/page/' + content.id"
-                class="hover:underline whitespace-pre-wrap"
+                class="underline whitespace-pre-wrap hover:opacity-60"
             >
                 {{ content.title }}
             </NuxtLink>

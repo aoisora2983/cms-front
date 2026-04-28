@@ -129,6 +129,10 @@ breadcrumb.push({
     label: article.content.title,
     link: '',
 })
+
+const tags = article.tags.map(function (item) {
+    return item.id
+})
 </script>
 
 <template>
@@ -188,13 +192,28 @@ breadcrumb.push({
                     </dd>
                 </dl>
             </div>
-            <AtomTableOfContent :head-list="headList" />
-            <!-- eslint-disable vue/no-v-html -->
-            <section
-                id="blog-article"
-                class="mb-4 py-4 md:px-4 leading-loose"
-                v-html="html"
-            />
+            <div
+                class="flex flex-col"
+            >
+                <AtomTableOfContent
+                    :head-list="headList"
+                    :is-open="true"
+                />
+                <div>
+                    <!-- eslint-disable vue/no-v-html -->
+                    <section
+                        id="blog-article"
+                        class="mb-4 py-4 md:px-4 leading-loose"
+                        v-html="html"
+                    />
+                    <div class="sticky w-full z-10 bottom-4 flex justify-end mb-4">
+                        <AtomTableOfContent
+                            :head-list="headList"
+                            :is-open="false"
+                        />
+                    </div>
+                </div>
+            </div>
             <!-- eslint-enable -->
             <ul class="flex justify-end items-center mb-4 gap-2">
                 <li>
@@ -222,14 +241,25 @@ breadcrumb.push({
             <h2 class="pb-2 text-xl">
                 Comment
             </h2>
-            <OrganismCommentList
+            <LazyOrganismCommentList
                 v-if="article.comments != null"
                 :article-id="id"
                 :comments="article.comments"
             />
-            <MoleculeCommentInput
+            <LazyMoleculeCommentInput
                 :article-id="id"
                 :replay-id="0"
+            />
+        </section>
+
+        <section class="bg-gray-100 p-8 rounded">
+            <h2 class="pb-2 text-2xl text-center font-bold border-b border-b-gray-800 mb-4">
+                関連記事
+            </h2>
+            <LazyOrganismBlogCardList
+                :h-level="3"
+                :tags="tags"
+                :limit="3"
             />
         </section>
 

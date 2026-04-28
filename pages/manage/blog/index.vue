@@ -171,7 +171,7 @@ useHead({
                 >
                 <label
                     for="search-accordion"
-                    class="flex justify-center "
+                    class="flex justify-center cursor-pointer"
                 >
                     <div class="flex">
                         <p>

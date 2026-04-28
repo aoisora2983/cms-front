@@ -120,7 +120,7 @@ const searchGoogle = () => {
                         >
                             <NuxtLink
                                 v-if="!isActive(header.url, header.strict)"
-                                class="hover:opacity-80 px-4 py-2 rounded-full flex justify-start items-center"
+                                class="hover:opacity-70 px-4 py-2 rounded-full flex justify-start items-center"
                                 :to="header.url"
                             >
                                 <i class="material-icons mr-2 text-2xl">{{ header.icon }}</i>

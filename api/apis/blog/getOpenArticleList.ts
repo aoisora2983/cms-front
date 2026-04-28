@@ -4,6 +4,7 @@ import type { OpenArticles } from '~/api/models/blog/article'
 export type OpenArticleListRequest = {
     keyword: string | null
     tags: Array<number> | null
+    exclude_page_ids: Array<number>
     limit: number | null
     page: number | null
 }

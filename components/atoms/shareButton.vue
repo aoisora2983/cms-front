@@ -33,7 +33,7 @@ const onClickTooltip = (event: Event) => {
     >
         <div
             v-if="onClicked"
-            class="absolute bottom-full right-0 share-tooltip text-white flex items-center bg-gray-900 p-4 mb-2 rounded opacity-80"
+            class="z-10 absolute bottom-full right-0 share-tooltip text-white flex items-center bg-gray-900 p-4 mb-2 rounded opacity-80"
         >
             <i class="material-icons text-2xl mr-2">
                 link

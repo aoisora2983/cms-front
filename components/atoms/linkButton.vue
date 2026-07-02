@@ -29,6 +29,7 @@ const colorClass = `text-${Props.color} border-${Props.color} bg-${Props.bgColor
         <i
             v-if="icon !== null"
             class="material-icons mr-2 text-2xl"
+            aria-hidden="true"
         >
             {{ icon }}
         </i>

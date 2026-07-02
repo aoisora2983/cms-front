@@ -14,7 +14,10 @@ const config = useRuntimeConfig()
                             href="/blog/page/1"
                             class="flex items-center hover:opacity-60"
                         >
-                            <i class="material-icons mr-2 text-2xl"> arrow_circle_right </i>
+                            <i
+                                class="material-icons mr-2 text-2xl"
+                                aria-hidden="true"
+                            > arrow_circle_right </i>
                             <p>このサイトについて</p>
                         </NuxtLink>
                     </li>
@@ -23,7 +26,10 @@ const config = useRuntimeConfig()
                             href="/blog/page/21"
                             class="flex items-center"
                         >
-                            <i class="material-icons mr-2 text-2xl"> arrow_circle_right </i>
+                            <i
+                                class="material-icons mr-2 text-2xl"
+                                aria-hidden="true"
+                            > arrow_circle_right </i>
                             <p>プライバシーポリシー</p>
                         </NuxtLink>
                     </li>

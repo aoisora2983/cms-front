@@ -123,7 +123,10 @@ const searchGoogle = () => {
                                 class="hover:opacity-70 px-4 py-2 rounded-full flex justify-start items-center"
                                 :to="header.url"
                             >
-                                <i class="material-icons mr-2 text-2xl">{{ header.icon }}</i>
+                                <i
+                                    class="material-icons mr-2 text-2xl"
+                                    aria-hidden="true"
+                                >{{ header.icon }}</i>
                                 <span>
                                     {{ header.label }}
                                 </span>
@@ -132,7 +135,10 @@ const searchGoogle = () => {
                                 v-else
                                 class="px-4 py-2 opacity-50 flex justify-start items-center"
                             >
-                                <i class="material-icons mr-2 text-2xl">{{ header.icon }}</i>
+                                <i
+                                    class="material-icons mr-2 text-2xl"
+                                    aria-hidden="true"
+                                >{{ header.icon }}</i>
                                 <span>
                                     {{ header.label }}
                                 </span>
@@ -165,7 +171,12 @@ const searchGoogle = () => {
                         for="input-search-keyword"
                         class="flex items-center mr-0 sm:mr-4 w-full sm:w-auto"
                     >
-                        <i class="pr-2 py-2 material-icons text-2xl">search</i>
+                        <i
+                            class="pr-2 py-2 material-icons text-2xl"
+                            aria-hidden="true"
+                        >
+                            search
+                        </i>
                         サイト内検索
                     </label>
                     <div class="rounded flex flex-grow items-center border border-stone-800 w-full sm:w-auto">

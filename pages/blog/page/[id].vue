@@ -144,7 +144,7 @@ const tags = article.tags.map(function (item) {
     <main class="max-w-4xl mx-auto p-4">
         <AtomBreadcrumb :breadcrumb="breadcrumb" />
         <div
-            v-if="publishedAt.isBefore(pastYear)"
+            v-if="publishedAt.isBefore(pastYear) && updatedAt.isBefore(pastYear)"
             class="py-8"
         >
             <p class="flex my-4 p-4 rounded border border-red-600 bg-red-100 justify-center items-center">

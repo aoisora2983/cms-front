@@ -34,7 +34,7 @@ useHead({
 <template>
     <main class="max-w-7xl mx-auto w-full p-4">
         <OrganismBlogEditHeader />
-        <section class="bg-white rounded p-4 my-4">
+        <section class="bg-white rounded p-4 my-4 border border-gray-400">
             <h1 class="mb-4 font-bold text-xl text-center">
                 アクセシビリティ管理
             </h1>

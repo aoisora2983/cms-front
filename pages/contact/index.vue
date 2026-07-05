@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { registerOpinion } from '~/api/apis/opinion/registerOpinion'
+import type { Breadcrumb } from '~/api/models/common'
 
 const title = 'サイトに関するご意見・お問合せ・不具合等の送信フォーム'
 const description = 'サイトやツールに関するご意見・お問合せ・不具合報告はこちらのフォームから送信してください。1か月以内を目標に回答しますが、不適切な内容には回答しない可能性があることをご了承ください。'
@@ -45,13 +46,24 @@ const onClickSend = async () => {
         loading.unload()
     }
 }
+
+const breadcrumb: Breadcrumb[] = []
+breadcrumb.push({
+    label: 'Home',
+    link: '/',
+})
+breadcrumb.push({
+    label: 'お問合せ',
+    link: '',
+})
 </script>
 
 <template>
-    <main class="w-full">
+    <main class="max-w-4xl mx-auto p-4">
+        <AtomBreadcrumb :breadcrumb="breadcrumb" />
         <section
             id="blog-list"
-            class="max-w-5xl mx-auto p-4 mt-10 sm:mt-32 leading-relaxed"
+            class="max-w-5xl mx-auto p-4 mt-10 sm:mt-30 leading-relaxed"
         >
             <h1 class="text-2xl sm:text-4xl font-bold mb-6 text-center">
                 お問合せ

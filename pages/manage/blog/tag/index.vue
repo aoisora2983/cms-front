@@ -88,8 +88,14 @@ const addClass = (status: number | undefined) => {
 const touchOverIndex = ref<number | null>(null)
 // 指の位置にあるindexを取得してdragenterと同じ操作を行う
 const onTouchmove = (event: TouchEvent) => {
-    const x = event.changedTouches[0].clientX
-    const y = event.changedTouches[0].clientY
+    let x = 0
+    let y = 0
+    if (event.changedTouches[0]) {
+        x = event.changedTouches[0].clientX
+    }
+    if (event.changedTouches[0]) {
+        y = event.changedTouches[0].clientY
+    }
     let dom = document.elementFromPoint(x, y)
 
     if (!dom) {
@@ -170,7 +176,7 @@ useHead({
         <OrganismBlogEditHeader />
         <section
             id="tag-list"
-            class="bg-white rounded p-4 my-4"
+            class="bg-white rounded p-4 my-4 border border-gray-400"
         >
             <h1 class="mb-4 font-bold text-xl text-center">
                 タグ一覧

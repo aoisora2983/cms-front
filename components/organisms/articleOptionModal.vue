@@ -3,7 +3,7 @@ import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'
 import { fileupload } from '~/api/apis/common/fileupload'
 import type { ArticleStatus } from '~/api/models/blog/article'
-import { ARTICLE_STATUSES } from '~/constants/constants'
+import { ARTICLE_STATUSES, PAGE, UNIQUE_PAGE_TYPES } from '~/constants/constants'
 import noImageUrl from '@/assets/img/no_image.jpg'
 
 interface Props {
@@ -13,6 +13,7 @@ interface Props {
     publishedEndTime?: Dayjs | null
     description?: string
     thumbnail?: string
+    pageType?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -22,6 +23,7 @@ const props = withDefaults(defineProps<Props>(), {
     publishedEndTime: null,
     description: '',
     thumbnail: '',
+    pageType: PAGE,
 })
 
 const loading = useLoading()
@@ -38,6 +40,7 @@ if (props.publishedEndTime != null) {
 const publishedEndAt = ref(tmpPublishedEndTime)
 const publishedInfinity = ref(true)
 const thumbnail = ref(props.thumbnail ? props.thumbnail : noImageUrl)
+const pageType = ref(props.pageType ? props.pageType : PAGE)
 
 const status = ref(props.status ?? ARTICLE_STATUSES[0])
 if (props.status != null) {
@@ -49,7 +52,7 @@ const emits = defineEmits(
     [
         'update:show', 'update:status', 'update:description',
         'update:publishedStartTime', 'update:publishedEndTime', 'update:publishedInfinity',
-        'update:thumbnail',
+        'update:thumbnail', 'update:pageType',
     ],
 )
 
@@ -64,6 +67,7 @@ const onOk = () => {
     emits('update:publishedEndTime', publishedEndAt.value)
     emits('update:publishedInfinity', publishedInfinity.value)
     emits('update:thumbnail', thumbnail.value)
+    emits('update:pageType', pageType.value)
     updateShow(false)
 }
 
@@ -78,7 +82,7 @@ const onChangeImage = async (event: Event) => {
     const target = event.target as HTMLInputElement
     const files = target.files
 
-    if (files) {
+    if (files && files[0]) {
         const formData = new FormData()
         formData.append('file', files[0])
 
@@ -184,23 +188,23 @@ const onChangeImage = async (event: Event) => {
             <div class="mb-4">
                 <label
                     htmlFor="thumbnail"
-                    className="text-gray-700 pl-1 mb-2"
+                    class="pl-1 mb-2"
                 >
                     サムネイルアップロード
                 </label>
-                <div className="flex flex-col md:flex-row items-center gap-4">
-                    <div className="flex justify-center items-center border border-dashed border-gray-500 w-24 h-24 flex-none overflow-hidden">
+                <div class="flex flex-col md:flex-row items-center gap-4">
+                    <div class="flex justify-center items-center border border-dashed border-gray-500 w-24 h-24 flex-none overflow-hidden">
                         <img
                             alt="Preview"
-                            className="dark:invert w-23 h-23"
+                            class="dark:invert w-23 h-23"
                             :src="thumbnail"
                         >
                     </div>
-                    <div className="space-y-8 w-full grow">
+                    <div class="space-y-8 w-full grow">
                         <input
                             id="thumbnail"
                             type="file"
-                            className="w-full text-gray-500 font-medium text-base bg-gray-100 file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-gray-800 file:hover:bg-gray-700 file:text-white rounded-sm"
+                            class="w-full text-gray-500 font-medium text-base bg-gray-100 file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-gray-800 file:hover:bg-gray-700 file:text-white rounded-sm"
                             @change="onChangeImage"
                         >
                         <input
@@ -209,6 +213,27 @@ const onChangeImage = async (event: Event) => {
                         >
                     </div>
                 </div>
+            </div>
+            <div class="mb-4">
+                <label
+                    htmlFor="page-type"
+                    class="block pb-1"
+                >
+                    特殊記事設定
+                </label>
+                <select
+                    id="page-type"
+                    v-model="pageType"
+                    class="box-border border border-gray-300 w-full rounded-sm px-4 py-2"
+                >
+                    <option
+                        v-for="(item, index) in UNIQUE_PAGE_TYPES"
+                        :key="index"
+                        :value="item['id']"
+                    >
+                        {{ item["label"] }}
+                    </option>
+                </select>
             </div>
             <div class="flex justify-end gap-2">
                 <AtomButton

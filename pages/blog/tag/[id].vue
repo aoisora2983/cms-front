@@ -13,6 +13,7 @@ const tag = await getTag({
 
 const articleList = await getOpenArticleList({
     keyword: null,
+    exclude_page_ids: [],
     tags: [id],
     limit: null,
     page: null,
@@ -26,7 +27,7 @@ if (articleList.total == 0) {
 }
 
 const title = `${tag.label}に関連する記事一覧`
-const description = `${tag.label}に関連する記事の一覧です。不具合対処の備忘録や、便利なテクニック、ポエム等を掲載しています。`
+const description = `「${tag.label}」に関連する記事の一覧です。不具合対処の備忘録や、便利なテクニック、ポエム等を掲載しています。公式の情報による裏取りと引用を心がけています。ご指摘コメントや問い合わせ歓迎。`
 
 const config = useRuntimeConfig()
 useHead({

@@ -8,11 +8,12 @@ import dayjs from 'dayjs'
 import type { ArticleStatus, Tag } from '~/api/models/blog/article'
 import { correctArticle } from '~/api/apis/blog/correctArticle'
 import { registerArticle } from '~/api/apis/blog/registerArticle'
-import { DATETIME_FORMAT, CORRECT_NG, CORRECT_WARNING } from '~/constants/constants'
+import { DATETIME_FORMAT, CORRECT_NG, CORRECT_WARNING, PAGE } from '~/constants/constants'
 import { ErrorMessages } from '~/api/fetch'
 import { getArticle } from '~/api/apis/blog/getArticle'
 import type { CorrectStatus } from '~/api/models/blog/correct'
 
+const route = useRoute()
 definePageMeta({ layout: 'admin' })
 
 const correctModal = useCorrectModal()
@@ -21,7 +22,6 @@ const messageModal = useMessageModal()
 const loading = useLoading()
 loading.load()
 
-const route = useRoute()
 const slug = route.params.slug
 let id = null
 let idBranch = null
@@ -49,6 +49,7 @@ interface ArticleInput {
     status: ArticleStatus | null
     description: string
     thumbnail: string
+    pageType: number
 }
 
 const showOptionModal = ref<boolean>(false)
@@ -64,6 +65,7 @@ const input = ref<ArticleInput>({
     status: null,
     description: '',
     thumbnail: '',
+    pageType: PAGE,
 })
 
 if (id != null || idBranch != null) {
@@ -86,6 +88,7 @@ if (id != null || idBranch != null) {
         input.value.status = res.content.status
         input.value.description = res.content.description
         input.value.thumbnail = res.content.thumbnail
+        input.value.pageType = res.content.page_type
     }
     catch (error) {
         console.log(error)
@@ -182,6 +185,7 @@ const register = async () => {
             published_end_date: _publishedEndTime,
             description: input.value.description,
             thumbnail: input.value.thumbnail,
+            page_type: input.value.pageType,
         })
     }
     catch (error) {
@@ -302,6 +306,7 @@ useHead({
                         v-model:published-infinity="input.publishedInfinity"
                         v-model:status="input.status"
                         v-model:thumbnail="input.thumbnail"
+                        v-model:page-type="input.pageType"
                     />
                 </div>
                 <AtomButton

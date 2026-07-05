@@ -3,7 +3,7 @@ import { getOpenPortfolioList } from '~/api/apis/portfolio/getOpenPortfolioList'
 import type { Breadcrumb } from '~/api/models/common'
 
 const title = '作成したシステムやサービス（ポートフォリオ）一覧ページ'
-const description = '作成したシステムやサービス（ポートフォリオ）の一覧ページです。新しい制作物ができ次第追加予定。'
+const description = '作成したシステムやサービス（ポートフォリオ）の一覧ページです。自作のNuxt×Golang制のCMSや、オンラインで無料で使える便利ツールを掲載しています。今後も新しい制作物ができ次第追加していきます。'
 
 useHead({
     title: title,
@@ -26,7 +26,7 @@ breadcrumb.push({
 })
 breadcrumb.push({
     label: 'Portfolio',
-    link: '/portfolio/',
+    link: '',
 })
 </script>
 

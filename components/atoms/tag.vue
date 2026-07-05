@@ -19,6 +19,7 @@ const href = '/blog/tag/' + props.id
 <template>
     <div class="relative">
         <NuxtLink
+            rel="nofollow"
             :to="href"
             class="tag-image-link flex items-center rounded-l-full rounded-r-full pl-1 pr-4 py-1 bg-stone-600 hover:opacity-60 text-white"
             :class="disableLink ? 'pointer-events-none' : ''"

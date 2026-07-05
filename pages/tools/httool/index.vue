@@ -2,7 +2,7 @@
 import type { Breadcrumb } from '~/api/models/common'
 
 const title = 'カスタマイズ可能なhtpasswd,htaccess作成ツール'
-const description = 'オンラインでBASIC認証用のhtpasswd,htaccessを作成するツールです。パスワードをランダムに設定することも可能です。'
+const description = 'オンラインでBASIC認証用のhtpasswd,htaccessを作成するツールです。パスワードをランダムに設定することも可能です。Javascript上で完結するため、ID,パスワード情報をサーバーに送信せず安心して作成できます。'
 
 useHead({
     title: title,
@@ -449,7 +449,7 @@ const clickResult = (event: Event) => {
             <p style="text-indent: 1rem">
                 不具合報告をいただける場合は<NuxtLink
                     class="underline hover:opacity-50"
-                    href="/opinion"
+                    href="/contact"
                 >問合せフォーム</NuxtLink>からお願いします。
             </p>
             <h3 class="text-lg bg-gray-200 rounded py-1 ml-2 pl-4 my-2">

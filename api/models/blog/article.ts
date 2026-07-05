@@ -53,4 +53,5 @@ export type Content = {
     status: ArticleStatus
     thumbnail: string
     description: string
+    page_type: number
 }

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const config = useRuntimeConfig()
 
-const title = 'サイト内検索結果(Google Programmable Search Engine)'
-const description = 'Googleの「Programmable Search Engine」を使ったサイト内の検索結果です。'
+const title = 'サイト内検索結果(Google Programmable Search Engine使用)'
+const description = 'Googleの「Programmable Search Engine」を使ったサイト内の検索結果です。Google検索を使っているため、文字のゆらぎ、類似語等幅広く対応しています。最新記事が表示されるようになるまで少し時間を置く必要があることにご留意ください。'
 
 useHead({
     title: title,

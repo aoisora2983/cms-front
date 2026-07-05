@@ -60,6 +60,10 @@ export default defineNuxtConfig({
                     property: 'og:image',
                     content: process.env.NUXT_PUBLIC_IMAGE_URL + '/img/logo.webp',
                 },
+                {
+                    property: 'author',
+                    content: process.env.NUXT_PUBLIC_AUTHOR,
+                },
             ],
             link: [
                 { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons&display=block' },
@@ -86,11 +90,7 @@ export default defineNuxtConfig({
     },
     routeRules: {
         '/': { ssr: true },
-        '/blog': { ssr: true },
-        '/blog/**': { ssr: true },
-        '/portfolio': { ssr: true },
-        '/portfolio/**': { ssr: true },
-        '/opinion': { ssr: true },
+        '/**': { ssr: true },
         '/manage/': { ssr: false },
         '/manage/**': { ssr: false },
     },

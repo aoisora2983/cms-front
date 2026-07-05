@@ -2,7 +2,7 @@
 import type { Breadcrumb } from '~/api/models/common'
 
 const title = 'ウェブで使える便利ツール一覧'
-const description = 'サイト制作者に便利なツールを多数公開。パスワード、Basic認証用のhtpasswd, htaccess作成、カスタマイズ可能なQRコード作成ツールなどを無料で提供しています。'
+const description = 'サイト制作者に便利なツールを多数公開しています。パスワード、Basic認証用のhtpasswd, htaccess作成、カスタマイズ可能なQRコード作成ツール、都道府県画像ジェネレーターなどを無料で提供しています。今後もいいネタを思いつき次第追加していきます。'
 
 useHead({
     title: title,

@@ -5,7 +5,7 @@ import simpleMap from '~/assets/json/simplemap.json'
 import type SelectPrefecture from '~/components/atoms/selectPrefecture.vue'
 
 const title = '都道府県画像ジェネレータ'
-const description = '各都道府県画像を取得することができます。日本地図全体、東北・関東等の地域毎、各都道府県など粒度を選ぶことも可能です。'
+const description = '各都道府県の画像を取得することができるオンラインツール。日本地図全体、東北・関東等の地域毎、各都道府県など粒度を選んで出力したり、境界線・背景色やクリック時の色の設定、境界線の太さやサイズ設定も可能です。都道府県をまとめて選択する便利なショートカット機能付き。'
 
 useHead({
     title: title,
@@ -551,7 +551,7 @@ const onClickDownload = function () {
                 現在以下の機能があります。いい機能を思いついたら今後も追加予定です。<br>
                 不具合報告、機能ネタをご提供いただける場合は<NuxtLink
                     class="underline hover:opacity-50"
-                    href="/opinion"
+                    href="/contact"
                 >問合せフォーム</NuxtLink>からお願いします。
             </p>
             <ul class="ml-6 mt-2 list-disc">

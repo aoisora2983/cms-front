@@ -5,7 +5,7 @@ import { ErrorMessages } from '~/api/fetch'
 import type { Breadcrumb } from '~/api/models/common'
 
 const title = 'カスタマイズ可能なQRコード作成ツール'
-const description = '中心画像やハーフトーン画像を配置して個性的なQRコードが作成できるオンラインツール。背景色やQRコードの色、ドットの形まで自由にカスタマイズ可能。不具合や機能改善の要望も受け付けています'
+const description = '中心画像やハーフトーン画像を配置して個性的なQRコードが作成できるオンラインツール。画像サイズ、背景色やQRコードの色に透過処理・グラデーション設定、ドットの形まで自由にカスタマイズ可能です。不具合や機能改善の要望も受け付けています。'
 
 useHead({
     title: title,
@@ -548,7 +548,7 @@ const onClickDownload = () => {
                     現在以下の機能があります。いい機能を思いついたら今後も追加予定です。<br>
                     不具合報告、機能ネタをご提供いただける場合は<NuxtLink
                         class="underline hover:opacity-50"
-                        href="/opinion"
+                        href="/contact"
                     >問合せフォーム</NuxtLink>からお願いします。
                 </p>
 

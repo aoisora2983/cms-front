@@ -3,7 +3,7 @@ import { getOpenArticleList } from '~/api/apis/blog/getOpenArticleList'
 import type { Breadcrumb } from '~/api/models/common'
 
 const title = `ブログ記事一覧 - 備忘録・技術・ポエム等`
-const description = `ブログ記事の一覧です。不具合対処の備忘録や、便利なテクニック、ポエム等を掲載しています。キーワードやタグを使って記事を絞り込んで探すこともできます。`
+const description = `ブログ記事の一覧です。不具合対処の備忘録や、便利なテクニック、ポエム等を掲載しています。公式の情報による裏取りと引用を心がけています。ご指摘コメントや問い合わせ歓迎。キーワードやタグを使って記事を絞り込んで探すこともできます。`
 
 useHead({
     title: title,
@@ -33,6 +33,7 @@ const getArticle = async () => {
     return await getOpenArticleList({
         keyword: keyword.value,
         tags: null,
+        exclude_page_ids: [],
         limit: null,
         page: null,
     })

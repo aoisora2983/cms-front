@@ -12,6 +12,7 @@ export type RegisterArticleRequest = {
     published_end_date: string | null
     description: string
     thumbnail: string
+    page_type: number
 }
 
 export const registerArticle = async (

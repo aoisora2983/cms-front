@@ -26,7 +26,9 @@ const getIds = () => {
     const ids = []
 
     for (const index in opinions) {
-        ids.push(opinions[index].id)
+        if (opinions[index]) {
+            ids.push(opinions[index].id)
+        }
     }
 
     return ids
@@ -48,10 +50,10 @@ useHead({
 
 <template>
     <main class="max-w-7xl mx-auto w-full p-4">
-        <div class="bg-white rounded p-4 my-4">
+        <div class="bg-white rounded p-4 my-4 border border-gray-400">
             検索枠
         </div>
-        <section class="bg-white rounded p-4 my-4">
+        <section class="bg-white rounded p-4 my-4 border border-gray-400">
             <h1 class="mb-4 font-bold text-xl text-center">
                 問合せ一覧
             </h1>

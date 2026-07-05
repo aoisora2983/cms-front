@@ -7,18 +7,28 @@ definePageMeta({ layout: 'admin' })
 
 const route = useRoute()
 const accessibilityId = parseInt(route.params.id as string)
+const levels = CHECK_LEVELS
 
-// const loading = useLoading()
+const loading = useLoading()
 // const infoModal = useInfoModal()
 
 const wordList = ref([] as ReplaceWord[])
+const searchKeyword = ref('')
+const searchAlertLevel = ref([])
 
 const getReplaceWord = async () => {
-    wordList.value = await getReplaceWordList({ id: accessibilityId })
+    try {
+        wordList.value = await getReplaceWordList({
+            id: accessibilityId,
+            keyword: searchKeyword.value,
+            alert_level: searchAlertLevel.value,
+        })
+    }
+    catch (error) {
+        console.log(error)
+    }
 }
 await getReplaceWord()
-
-const levels = CHECK_LEVELS
 
 const responsiveClass = 'flex text-center before:px-2 before:py-4  before:text-center before:font-bold before:w-2/5 before:content-[attr(data-label)] md:before:hidden md:table-cell'
 const headers = {
@@ -43,7 +53,9 @@ const getIds = () => {
     const ids = []
 
     for (const index in wordList.value) {
-        ids.push(wordList.value[index].id)
+        if (wordList.value[index]) {
+            ids.push(wordList.value[index].id)
+        }
     }
 
     return ids
@@ -91,17 +103,80 @@ const onClickRemove = () => {
 useHead({
     title: 'アクセシビリティ管理',
 })
+
+const reloadReplaceWord = async () => {
+    loading.load()
+
+    try {
+        await getReplaceWord()
+    }
+    catch (error) {
+        console.log(error)
+    }
+
+    loading.unload()
+}
+
+const reSearch = async () => {
+    reloadReplaceWord()
+}
 </script>
 
 <template>
     <main class="max-w-7xl mx-auto w-full p-4">
         <OrganismBlogEditHeader />
-        <div class="bg-white rounded p-4 my-4">
-            検索枠
+        <div class="bg-white rounded p-4 my-4 border border-gray-400">
+            <div class="grid md:grid-cols-2">
+                <div>
+                    <header class="m-4 font-bold">
+                        キーワード検索
+                    </header>
+                    <div>
+                        <div class="rounded flex items-center border m-4 mb-8 border-stone-800 max-w-80">
+                            <input
+                                v-model="searchKeyword"
+                                type="text"
+                                name="keyword"
+                                class="border-none rounded-l flex-grow w-40"
+                                placeholder="キーワードを入力"
+                            >
+                            <button
+                                class="whitespace-nowrap bg-stone-600 text-white py-2 px-6 box-border border-2 border-stone-600 focus:border-2 focus:border-orange-400"
+                                @click="reSearch"
+                            >
+                                検索
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <header class="m-4 font-bold">
+                        警告レベル
+                    </header>
+                    <ul class="m-4 flex gap-4">
+                        <li
+                            v-for="(level, index) in levels"
+                            :key="index"
+                            class="flex items-center gap-2"
+                        >
+                            <input
+                                :id="'search-alert-level-' + level.id"
+                                v-model="searchAlertLevel"
+                                :value="level.id"
+                                type="checkbox"
+                                @change="reSearch"
+                            >
+                            <label :for="'search-alert-level-' + level.id">
+                                {{ level.label }}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <section class="bg-white rounded p-4 my-4">
+        <section class="bg-white rounded p-4 my-4 border border-gray-400">
             <h1 class="mb-4 font-bold text-xl text-center">
-                コメント一覧
+                単語一覧
             </h1>
             <div class="flex justify-end items-center">
                 <button

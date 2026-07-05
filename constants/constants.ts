@@ -55,3 +55,21 @@ export const CHECK_LEVELS = [
         label: '禁止',
     },
 ]
+
+export const PAGE = 0
+export const PRIVACY_POLICY = 1
+export const ABOUT_US = 2
+export const UNIQUE_PAGE_TYPES = [
+    {
+        id: PAGE,
+        label: 'ページ',
+    },
+    {
+        id: PRIVACY_POLICY,
+        label: 'プライバシーポリシー',
+    },
+    {
+        id: ABOUT_US,
+        label: 'このサイトについて',
+    },
+]

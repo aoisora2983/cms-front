@@ -159,7 +159,7 @@ useHead({
         <OrganismBlogEditHeader />
         <div class="bg-white rounded">
             <div
-                class="p-4 my-4 hover:bg-gray-200"
+                class="p-4 my-4 hover:bg-gray-200 border border-gray-400"
                 :class="checkedSearchAccordion ? '' : 'bg-gray-200'"
             >
                 <input
@@ -278,7 +278,8 @@ useHead({
                 </ul>
             </div>
         </div>
-        <section class="bg-white rounded p-4 my-4">
+
+        <section class="bg-white rounded p-4 my-4 border border-gray-400">
             <h1 class="mb-4 font-bold text-xl text-center">
                 ページ一覧
             </h1>

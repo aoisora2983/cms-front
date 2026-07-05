@@ -11,8 +11,9 @@ const config = useRuntimeConfig()
                 <ul class="flex flex-col sm:flex-row items-center sm:mr-6">
                     <li class="w-full sm:w-auto">
                         <NuxtLink
-                            href="/blog/page/1"
+                            to="/about-us"
                             class="flex items-center hover:opacity-60"
+                            :prefetch="false"
                         >
                             <i
                                 class="material-icons mr-2 text-2xl"
@@ -23,8 +24,9 @@ const config = useRuntimeConfig()
                     </li>
                     <li class="w-full sm:w-auto border-t-2 border-dashed sm:border-0 pt-2 sm:pt-0 mt-2 sm:mt-0 sm:ml-2 hover:opacity-60">
                         <NuxtLink
-                            href="/blog/page/21"
+                            to="/privacy-policy"
                             class="flex items-center"
+                            :prefetch="false"
                         >
                             <i
                                 class="material-icons mr-2 text-2xl"
@@ -36,7 +38,7 @@ const config = useRuntimeConfig()
                 </ul>
                 <div class="mt-4 sm:mt-0">
                     <AtomLinkButton
-                        href="/opinion"
+                        href="/contact"
                         label="お問合せ"
                         icon="mail"
                         color="black"

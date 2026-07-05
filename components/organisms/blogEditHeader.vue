@@ -25,7 +25,7 @@ const isActive = (url: string) => {
 
 <template>
     <div class="my-4">
-        <ul class="flex flex-wrap bg-white rounded">
+        <ul class="flex flex-wrap bg-white rounded border border-gray-400">
             <li
                 v-for="(header, index) in headers"
                 :key="index"

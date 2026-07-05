@@ -55,6 +55,7 @@ const portfolioList = await getOpenPortfolioList()
                     <p class="mb-8 text-left sm:text-center">
                         ポートフォリオサイト兼学んだことのアウトプットブログサイトです。<br>
                         業務では主にPHPを扱い、趣味ではGo、Nuxt、Flutterを勉強しています。<br>
+                        趣味で開発した自作のオンラインツールや、技術的な学びを記録した記事、ポエムを公開しています。
                     </p>
                 </div>
             </div>

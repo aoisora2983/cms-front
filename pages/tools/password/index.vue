@@ -2,7 +2,7 @@
 import type { Breadcrumb } from '~/api/models/common'
 
 const title = 'カスタマイズ可能なパスワード作成ツール'
-const description = '文字数、個数、含める文字の種類など、様々な条件を指定してパスワードを複数個作成できるオンラインツールです。'
+const description = '各種条件でカスタマイズしてランダム生成が出来るオンラインのパスワード作成ツールです。文字数、パスワードの個数、含める文字の種類、同じ文字を含めない設定、間違えやすい文字を含めない設定など、様々なカスタマイズをして生成可能です。'
 
 useHead({
     title: title,
@@ -520,7 +520,7 @@ generatePassword()
                     現在以下の機能があります。いい機能を思いついたら今後も追加予定です。<br>
                     不具合報告、機能ネタをご提供いただける場合は<NuxtLink
                         class="underline hover:opacity-50"
-                        href="/opinion"
+                        href="/contact"
                     >問合せフォーム</NuxtLink>からお願いします。
                 </p>
                 <ul class="ml-6 list-disc">

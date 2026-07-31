@@ -86,6 +86,8 @@ export default defineNuxtConfig({
             ga4: process.env.NUXT_PUBLIC_GA4_TAG || '',
             googleAdSense: process.env.NUXT_PUBLIC_GOOGLE_ADSENSE || '',
             googleSearch: process.env.NUXT_PUBLIC_GOOGLE_SEARCH || '',
+            author: process.env.NUXT_PUBLIC_AUTHOR || '',
+            siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',
         },
     },
     routeRules: {

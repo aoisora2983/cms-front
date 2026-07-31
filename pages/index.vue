@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { getOpenPortfolioList } from '~/api/apis/portfolio/getOpenPortfolioList'
 
+const { addJsonLd } = useJsonLd()
+
 const title = 'WAの技術ブログとポートフォリオサイト'
 const description = 'Go、Nuxt、Flutter、PHPなどの技術ブログ。業務での経験に加え、趣味で開発した自作のオンラインツールや、技術的な学びを記録した記事、ポエムを公開しています。'
 
@@ -17,6 +19,18 @@ useSeoMeta({
 })
 
 const portfolioList = await getOpenPortfolioList()
+
+const config = useRuntimeConfig()
+addJsonLd({
+    '@type': 'WebSite',
+    'url': config.public.siteTitle,
+    'name': title,
+    'potentialAction': {
+        '@type': 'SearchAction',
+        'target': config.public.siteUrl + '/search?q={search_term}',
+        'query-input': 'required name=search_term',
+    },
+})
 </script>
 
 <template>

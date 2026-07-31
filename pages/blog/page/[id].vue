@@ -7,6 +7,7 @@ import '~/assets/css/article.scss'
 import 'highlight.js/styles/hybrid.css'
 import type { Breadcrumb } from '~/api/models/common'
 
+const { addJsonLd } = useJsonLd()
 const route = useRoute()
 const routeId = route.params.id as string
 const id = parseInt(routeId)
@@ -137,6 +138,34 @@ breadcrumb.push({
 
 const tags = article.tags.map(function (item) {
     return item.id
+})
+
+addJsonLd({
+    '@type': 'Article',
+    'headline': article.content.title,
+    'description': article.content.description,
+    'mainEntityOfPage': {
+        '@type': 'WebPage',
+        '@id': config.public.siteUrl + '/blog/page/' + article.content.id,
+    },
+    'image': [
+        config.public.siteUrl + article.content.thumbnail,
+    ],
+    'author': {
+        '@type': 'Person',
+        'url': config.public.siteUrl,
+        'name': article.content.user_name,
+    },
+    'publisher': {
+        '@type': 'Organization',
+        'name': config.public.author,
+        'logo': {
+            '@type': 'ImageObject',
+            'url': config.public.imageUrl + '/img/logo.webp',
+        },
+    },
+    'datePublished': article.content.published_start_time,
+    'dateModified': article.content.published_updated_time,
 })
 </script>
 

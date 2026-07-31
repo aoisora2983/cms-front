@@ -1,13 +1,16 @@
 <script setup lang="ts">
+import { useJsonLd } from '~/composables/useJsonLd'
+
 const config = useRuntimeConfig()
 const route = useRoute()
+const router = useRouter()
+const { graphNodes, addJsonLd, clearJsonLd } = useJsonLd()
 
-const url = useRequestURL()
+const baseUrl = config.public.siteUrl
 const getCanonicalPath = (path: string) => {
     if (path.endsWith('/')) {
         path = path.slice(0, -1)
     }
-    const baseUrl = url.protocol + '//' + url.host
     return baseUrl + path
 }
 
@@ -66,6 +69,44 @@ useHead(() => ({
 }))
 useSeoMeta({
     description: config.public.siteDescription,
+})
+
+// JSON-LD Organizationは共通
+const setCommonNodes = () => {
+    addJsonLd({
+        '@type': 'Organization',
+        'logo': config.public.imageUrl + '/img/logo.webp',
+        'url': baseUrl,
+        'name': config.public.siteTitle,
+        'founder': {
+            '@type': 'Person',
+            'url': baseUrl,
+            'name': config.public.author,
+        },
+    })
+}
+
+setCommonNodes()
+router.beforeEach((to, from) => {
+    // 実際にページが変わる場合のみクリア
+    if (to.path !== from.path) {
+        clearJsonLd()
+        setCommonNodes() // 共通のOrganizationを再度セット
+    }
+})
+
+useHead({
+    script: [
+        {
+            key: 'jsonld-graph',
+            type: 'application/ld+json',
+            innerHTML: computed(() => JSON.stringify({
+                '@context': 'https://schema.org',
+                '@graph': graphNodes.value,
+            })),
+            tagPosition: 'bodyClose',
+        },
+    ],
 })
 </script>
 

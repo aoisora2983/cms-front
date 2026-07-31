@@ -36,6 +36,7 @@ useHead({
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
         { property: 'og:image', content: config.public.imageUrl + tag.icon_path },
+        { name: 'robots', content: 'noindex' },
     ],
 })
 

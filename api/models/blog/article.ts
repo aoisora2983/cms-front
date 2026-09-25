@@ -1,4 +1,5 @@
 import type { Comment } from './comment'
+import type { UserLink } from '~/api/models/user/user'
 
 export type OpenArticles = {
     articles: Array<Article>
@@ -46,6 +47,7 @@ export type Content = {
     user_name: string
     user_description: string
     user_icon_path: string
+    user_links?: UserLink[]
     content: string
     published_start_time: string
     published_end_time: string

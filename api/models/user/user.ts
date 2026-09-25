@@ -1,3 +1,9 @@
+export type UserLink = {
+    icon_path: string
+    url: string
+    alt: string
+}
+
 export type User = {
     id: number
     group_id: number
@@ -7,4 +13,5 @@ export type User = {
     icon_path: string
     password: string
     sort_order: number
+    links?: UserLink[]
 }

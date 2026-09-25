@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import defaultImage from '@/assets/img/no_image.jpg'
+import type { UserLink } from '~/api/models/user/user'
 
 interface Props {
     thumbnail?: string
     author?: string
     description?: string
+    links?: UserLink[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
     thumbnail: defaultImage,
     author: '',
     description: '',
+    links: () => [],
 })
 
 const thumbnail = props.thumbnail != null ? '/uploader' + props.thumbnail : defaultImage
@@ -42,6 +45,30 @@ const thumbnail = props.thumbnail != null ? '/uploader' + props.thumbnail : defa
                                 {{ description }}
                             </dd>
                         </dl>
+                        <ul
+                            v-if="links.length > 0"
+                            class="flex flex-wrap justify-end gap-3 pt-2"
+                        >
+                            <li
+                                v-for="(link, index) in links"
+                                :key="index"
+                            >
+                                <NuxtLink
+                                    :href="link.url"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="flex items-center hover:opacity-60"
+                                >
+                                    <NuxtImg
+                                        :src="link.icon_path !== '' ? '/uploader' + link.icon_path
+                                            : '/img/link_clip.svg'"
+                                        :alt="link.alt"
+                                        width="24"
+                                        height="24"
+                                    />
+                                </NuxtLink>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

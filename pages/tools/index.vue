@@ -84,9 +84,6 @@ const tools = [
                         </dl>
                     </NuxtLink>
                 </li>
-                <li class="flex items-end">
-                    良いネタを思いつき次第追加予定
-                </li>
             </ul>
         </section>
     </main>

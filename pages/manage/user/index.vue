@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getUserList } from '~/api/apis/users/getUserList'
 import noImageUrl from '@/assets/img/no_image.jpg'
-import type { User } from '~/api/models/user/user'
+import type { User, UserLink } from '~/api/models/user/user'
 import { deleteUser } from '~/api/apis/users/deleteUser'
 
 definePageMeta({ layout: 'admin' })
@@ -28,6 +28,7 @@ const description = ref('')
 const mail = ref('')
 const iconPath = ref(noImageUrl)
 const password = ref('')
+const links = ref<UserLink[]>([])
 
 const onClickEdit = (
     user: User,
@@ -39,6 +40,7 @@ const onClickEdit = (
     mail.value = user.mail
     iconPath.value = user.icon_path
     password.value = user.password
+    links.value = user.links ?? []
     showModal.value = true
 }
 
@@ -77,6 +79,7 @@ const onClickAdd = () => {
     mail.value = ''
     iconPath.value = noImageUrl
     password.value = ''
+    links.value = []
     showModal.value = true
 }
 
@@ -195,6 +198,7 @@ useHead({
             v-model:mail="mail"
             v-model:icon-path="iconPath"
             v-model:password="password"
+            :links="links"
         />
     </main>
 </template>

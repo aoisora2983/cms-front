@@ -36,7 +36,7 @@ const thumbnail = content.thumbnail != null ? '/uploader' + content.thumbnail : 
             class="text-xl font-bold mb-4"
         >
             <NuxtLink
-                :to="'/blog/page/' + content.id"
+                :to="'/blog/post/' + content.id"
                 class="underline whitespace-pre-wrap hover:opacity-60"
             >
                 {{ content.title }}

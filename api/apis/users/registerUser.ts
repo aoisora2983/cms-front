@@ -1,4 +1,5 @@
 import { post } from '~/api/fetch'
+import type { UserLink } from '~/api/models/user/user'
 
 export type RegisterUserRequest = {
     id: number
@@ -8,6 +9,7 @@ export type RegisterUserRequest = {
     mail: string
     description: string
     filename: string
+    links: UserLink[]
 }
 
 export const registerUser = async (

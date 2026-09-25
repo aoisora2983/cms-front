@@ -146,7 +146,7 @@ addJsonLd({
     'description': article.content.description,
     'mainEntityOfPage': {
         '@type': 'WebPage',
-        '@id': config.public.siteUrl + '/blog/page/' + article.content.id,
+        '@id': config.public.siteUrl + '/blog/post/' + article.content.id,
     },
     'image': [
         config.public.siteUrl + article.content.thumbnail,
@@ -265,6 +265,7 @@ addJsonLd({
                     :author="article.content.user_name"
                     :description="article.content.user_description"
                     :thumbnail="article.content.user_icon_path"
+                    :links="article.content.user_links ?? []"
                 />
             </div>
         </article>

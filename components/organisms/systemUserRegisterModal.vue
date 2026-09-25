@@ -2,6 +2,7 @@
 import { fileupload } from '~/api/apis/common/fileupload'
 import { ErrorMessages } from '~/api/fetch'
 import { registerUser } from '~/api/apis/users/registerUser'
+import type { UserLink } from '~/api/models/user/user'
 import noImageUrl from '@/assets/img/no_image.jpg'
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
     mail: string
     iconPath: string
     password: string
+    links?: UserLink[]
 }
 const props = withDefaults(defineProps<Props>(), {
     show: false,
@@ -23,9 +25,16 @@ const props = withDefaults(defineProps<Props>(), {
     mail: '',
     iconPath: noImageUrl,
     password: '',
+    links: () => [],
 })
 
-interface PortfolioInput {
+interface UserLinkInput {
+    iconPath: string
+    url: string
+    alt: string
+}
+
+interface UserInput {
     id: number
     groupId: number
     name: string
@@ -33,9 +42,16 @@ interface PortfolioInput {
     mail: string
     iconPath: string
     password: string
+    links: UserLinkInput[]
 }
 
-const input = ref<PortfolioInput>({
+const createLinkInput = (link?: UserLink): UserLinkInput => ({
+    iconPath: link && link.icon_path !== '' ? link.icon_path : noImageUrl,
+    url: link?.url ?? '',
+    alt: link?.alt ?? '',
+})
+
+const input = ref<UserInput>({
     id: 0,
     groupId: 0,
     name: '',
@@ -43,16 +59,27 @@ const input = ref<PortfolioInput>({
     mail: '',
     iconPath: noImageUrl,
     password: '',
+    links: [createLinkInput()],
 })
+
+const syncInput = () => {
+    const links = (props.links ?? []).map(link => createLinkInput(link))
+    input.value.id = props.id
+    input.value.groupId = props.groupId
+    input.value.name = props.name
+    input.value.description = props.description
+    input.value.mail = props.mail
+    input.value.iconPath = props.iconPath != '' ? props.iconPath : noImageUrl
+    input.value.password = props.password
+    input.value.links = links.length > 0 ? links : [createLinkInput()]
+}
+
 watch(
-    () => props.id, () => {
-        input.value.id = props.id
-        input.value.groupId = props.groupId
-        input.value.name = props.name
-        input.value.description = props.description
-        input.value.mail = props.mail
-        input.value.iconPath = props.iconPath != '' ? props.iconPath : noImageUrl
-        input.value.password = props.password
+    () => props.show,
+    (show) => {
+        if (show) {
+            syncInput()
+        }
     },
 )
 
@@ -80,6 +107,13 @@ const onOk = async () => {
             mail: input.value.mail,
             description: input.value.description,
             filename: input.value.iconPath,
+            links: input.value.links
+                .filter(link => link.url.trim() !== '')
+                .map(link => ({
+                    icon_path: link.iconPath === noImageUrl ? '' : link.iconPath,
+                    url: link.url.trim(),
+                    alt: link.alt.trim(),
+                })),
         })
         updateShow(false)
         infoModal.open('登録に成功しました。', () => {
@@ -100,7 +134,7 @@ const onOk = async () => {
     loading.unload()
 }
 
-const onChangeImage = async (event: Event) => {
+const onChangeImage = async (event: Event, index?: number) => {
     if (!event) {
         return
     }
@@ -111,14 +145,22 @@ const onChangeImage = async (event: Event) => {
     const target = event.target as HTMLInputElement
     const files = target.files
 
-    if (files) {
+    if (files && files[0]) {
         const formData = new FormData()
         formData.append('file', files[0])
 
         try {
             loading.load()
             const res = await fileupload(formData)
-            input.value.iconPath = res.url
+            if (typeof index === 'number') {
+                const link = input.value.links[index]
+                if (link) {
+                    link.iconPath = res.url
+                }
+            }
+            else {
+                input.value.iconPath = res.url
+            }
         }
         catch (error) {
             console.log(error)
@@ -126,6 +168,17 @@ const onChangeImage = async (event: Event) => {
         finally {
             loading.unload()
         }
+    }
+}
+
+const onAddLink = () => {
+    input.value.links.push(createLinkInput())
+}
+
+const onRemoveLink = (index: number) => {
+    input.value.links.splice(index, 1)
+    if (input.value.links.length === 0) {
+        input.value.links.push(createLinkInput())
     }
 }
 </script>
@@ -209,6 +262,97 @@ const onChangeImage = async (event: Event) => {
                     v-model:input="input.password"
                     label="パスワード"
                     placeholder="ユーザーのパスワードを入力"
+                />
+            </div>
+            <div class="mb-2">
+                <h3 class="font-bold pl-1 mt-6 mb-2">
+                    関連リンク
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="border-b bg-gray-100">
+                            <tr class="text-left">
+                                <th class="py-2 pl-2 w-12">
+                                    No.
+                                </th>
+                                <th class="py-2 pl-2">
+                                    アイコン
+                                </th>
+                                <th class="py-2 pl-2">
+                                    リンク
+                                </th>
+                                <th class="py-2 pl-2">
+                                    アイコンの説明
+                                </th>
+                                <th class="pl-2" />
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                v-for="(link, index) in input.links"
+                                :key="index"
+                                :class="index % 2 == 0 ? '' : 'bg-gray-100'"
+                            >
+                                <td class="py-2 pl-2 align-middle">
+                                    {{ index + 1 }}.
+                                </td>
+                                <td class="py-2 pl-2 align-middle">
+                                    <div class="flex items-center gap-2">
+                                        <label>
+                                            <img
+                                                :alt="link.alt !== '' ? link.alt : 'リンクアイコンのプレビュー'"
+                                                class="w-10 h-10 object-contain border border-dashed border-gray-500"
+                                                :src="link.iconPath"
+                                            >
+                                            <input
+                                                :id="'user-link-icon-' + index"
+                                                type="file"
+                                                accept="image/*"
+                                                class="hidden"
+                                                @change="onChangeImage($event, index)"
+                                            >
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="py-2 pl-2 align-middle">
+                                    <input
+                                        :id="'user-link-url-' + index"
+                                        v-model="link.url"
+                                        type="url"
+                                        placeholder="GitHubリンク、SNSリンクなど"
+                                        class="border border-gray-300 rounded-sm py-2 px-3 text-gray-700"
+                                    >
+                                </td>
+                                <td class="py-2 pl-2 align-middle">
+                                    <input
+                                        :id="'user-link-alt-' + index"
+                                        v-model="link.alt"
+                                        type="text"
+                                        placeholder="アイコン画像の説明文"
+                                        class="border border-gray-300 rounded-sm py-2 px-3 text-gray-700"
+                                    >
+                                </td>
+                                <td class="py-2 align-middle">
+                                    <button
+                                        v-if="index > 0"
+                                        name="remove"
+                                        class="bg-red-600 text-white hover:opacity-80 focus:ring-4 focus:ring-gray-300 rounded px-5 py-2.5 me-2 mb-2 flex items-center justify-center"
+                                        @click="onRemoveLink(index)"
+                                    >
+                                        <i class="material-icons mr-2 text-2xl">delete</i>
+                                        <span>削除</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <AtomButton
+                    label="リンクを追加"
+                    icon="add"
+                    bg-color="blue-700"
+                    class="mt-2"
+                    @click="onAddLink"
                 />
             </div>
             <div class="flex justify-end gap-2">

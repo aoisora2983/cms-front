@@ -8,11 +8,13 @@ interface Props {
     article: Article
     tagLimit?: number
     hLevel?: number
+    blogPath?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
     tagLimit: 10,
     hLevel: 2,
+    blogPath: '/blog/',
 })
 const content = props.article.content
 const publishedAt = dayjs(content.published_start_time)
@@ -36,7 +38,7 @@ const thumbnail = content.thumbnail != null ? '/uploader' + content.thumbnail : 
             class="text-xl font-bold mb-4"
         >
             <NuxtLink
-                :to="'/blog/post/' + content.id"
+                :to="props.blogPath + 'post/' + content.id"
                 class="underline whitespace-pre-wrap hover:opacity-60"
             >
                 {{ content.title }}
@@ -61,6 +63,7 @@ const thumbnail = content.thumbnail != null ? '/uploader' + content.thumbnail : 
                             :id="tag.id"
                             :label="tag.label"
                             :icon="tag.icon_path"
+                            :tag-path="props.blogPath"
                         />
                     </li>
                 </ul>

@@ -50,6 +50,7 @@ interface ArticleInput {
     description: string
     thumbnail: string
     pageType: number
+    publishedSite: number
 }
 
 const showOptionModal = ref<boolean>(false)
@@ -66,6 +67,7 @@ const input = ref<ArticleInput>({
     description: '',
     thumbnail: '',
     pageType: PAGE,
+    publishedSite: 0,
 })
 
 if (id != null || idBranch != null) {
@@ -89,6 +91,7 @@ if (id != null || idBranch != null) {
         input.value.description = res.content.description
         input.value.thumbnail = res.content.thumbnail
         input.value.pageType = res.content.page_type
+        input.value.publishedSite = res.content.id_sub_site
     }
     catch (error) {
         console.log(error)
@@ -186,6 +189,7 @@ const register = async () => {
             description: input.value.description,
             thumbnail: input.value.thumbnail,
             page_type: input.value.pageType,
+            published_site: input.value.publishedSite,
         })
     }
     catch (error) {
@@ -307,6 +311,7 @@ useHead({
                         v-model:status="input.status"
                         v-model:thumbnail="input.thumbnail"
                         v-model:page-type="input.pageType"
+                        v-model:published-site="input.publishedSite"
                     />
                 </div>
                 <AtomButton

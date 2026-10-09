@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import { getArticleList } from '~/api/apis/blog/getArticleList'
 import { getTagList } from '~/api/apis/blog/getTagList'
 import { removeArticle } from '~/api/apis/blog/removeArticle'
+import { getSubSiteList } from '~/api/apis/subSite/getSubSiteList'
 import type { Articles } from '~/api/models/blog/article'
 import { ARTICLE_STATUSES, DATETIME_FORMAT } from '~/constants/constants'
 
@@ -10,6 +11,7 @@ definePageMeta({ layout: 'admin' })
 
 const confirmModal = useConfirmModal()
 const loading = useLoading()
+const subSites = await getSubSiteList()
 const articles = ref({} as Articles)
 const headers = {
     id: 'ID-枝番',
@@ -25,7 +27,9 @@ const isAllSelected = ref(false)
 const checkedIds = ref([] as string[])
 const checkedTagIds = ref([] as number[])
 const checkedStatuses = ref([] as number[])
+const checkedSubSiteIds = ref([] as number[])
 const searchKeyword = ref('')
+const searchPageNo = ref(0)
 const checkedSearchAccordion = ref(true)
 const pageLimit = ref(10)
 const nowPageNo = ref(0)
@@ -37,8 +41,10 @@ const getArticles = async () => {
     try {
         data = await getArticleList({
             keyword: searchKeyword.value,
+            page_no: searchPageNo.value ? searchPageNo.value : 0,
             statuses: checkedStatuses.value,
             tags: checkedTagIds.value,
+            sub_sites: checkedSubSiteIds.value,
             limit: pageLimit.value,
             page: nowPageNo.value,
         })
@@ -195,9 +201,9 @@ useHead({
 
             <div
                 :class="checkedSearchAccordion ? 'hidden' : ''"
-                class="p-4 pt-0 mb-4"
+                class="p-4 pt-0 mb-4 border border-gray-400"
             >
-                <div class="grid md:grid-cols-2">
+                <div class="grid sm:grid-cols-2">
                     <div>
                         <header class="m-4 font-bold">
                             キーワード検索
@@ -220,9 +226,114 @@ useHead({
                     </div>
                     <div>
                         <header class="m-4 font-bold">
-                            公開状態
+                            ページ番号
                         </header>
-                        <ul class="m-4 flex gap-4">
+                        <div class="rounded flex items-center border m-4 mb-8 border-stone-800 max-w-80">
+                            <input
+                                v-model="searchPageNo"
+                                type="number"
+                                name="page-no"
+                                class="border-none rounded-l flex-grow w-40"
+                                placeholder="ページ番号を入力"
+                            >
+                            <button
+                                class="whitespace-nowrap bg-stone-600 text-white py-2 px-6 box-border border-2 border-stone-600 focus:border-2 focus:border-orange-400"
+                                @click="reSearch"
+                            >
+                                検索
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <fieldset class="mb-4">
+                    <legend class="m-4 font-bold">
+                        タグ絞り込み
+                    </legend>
+                    <ul class="flex flex-wrap gap-y-3 m-4">
+                        <li
+                            v-for="(tag, index) in tags"
+                            :key="index"
+                            class="flex items-center"
+                        >
+                            <input
+                                :id="'tag-' + index"
+                                v-model="checkedTagIds"
+                                :value="tag.id"
+                                name="filter-tag"
+                                type="checkbox"
+                                class="hidden"
+                                @change="reSearch"
+                            >
+                            <label
+                                :for="'tag-' + index"
+                                :class="checkedTag(tag.id) ? '' : 'opacity-50'"
+                                class="px-2"
+                            >
+                                <AtomTag
+                                    :id="tag.id"
+                                    :label="tag.label"
+                                    :icon="tag.icon_path"
+                                    :disable-link="true"
+                                />
+                            </label>
+                        </li>
+                    </ul>
+                </fieldset>
+
+                <div class="grid sm:grid-cols-2">
+                    <fieldset>
+                        <legend class="mb-2 m-4 font-bold">
+                            表示サイト
+                        </legend>
+
+                        <ul class="mt-2 m-4 flex gap-4">
+                            <li
+                                class="flex items-center"
+                            >
+                                <input
+                                    id="subSite-0"
+                                    v-model="checkedSubSiteIds"
+                                    :value="0"
+                                    name="filter-sub-site"
+                                    type="checkbox"
+                                    @change="reSearch"
+                                >
+                                <label
+                                    for="subSite-0"
+                                    class="px-2"
+                                >
+                                    メイン
+                                </label>
+                            </li>
+                            <li
+                                v-for="(subSite, index) in subSites"
+                                :key="index"
+                                class="flex items-center"
+                            >
+                                <input
+                                    :id="'subSite-' + (index + 1)"
+                                    v-model="checkedSubSiteIds"
+                                    :value="subSite.id"
+                                    name="filter-sub-site"
+                                    type="checkbox"
+                                    @change="reSearch"
+                                >
+                                <label
+                                    :for="'subSite-' + (index + 1)"
+                                    class="px-2"
+                                >
+                                    {{ subSite.title }}
+                                </label>
+                            </li>
+                        </ul>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend class="mb-2 m-4 font-bold">
+                            公開状態
+                        </legend>
+                        <ul class="mt-2 m-4 flex gap-4">
                             <li
                                 v-for="(status, index) in ARTICLE_STATUSES"
                                 :key="index"
@@ -241,41 +352,8 @@ useHead({
                                 </label>
                             </li>
                         </ul>
-                    </div>
+                    </fieldset>
                 </div>
-
-                <header class="m-4 font-bold">
-                    タグ絞り込み
-                </header>
-                <ul class="flex flex-wrap gap-y-3 m-4">
-                    <li
-                        v-for="(tag, index) in tags"
-                        :key="index"
-                        class="flex items-center"
-                    >
-                        <input
-                            :id="'tag-' + index"
-                            v-model="checkedTagIds"
-                            :value="tag.id"
-                            name="filter-tag"
-                            type="checkbox"
-                            class="hidden"
-                            @change="reSearch"
-                        >
-                        <label
-                            :for="'tag-' + index"
-                            :class="checkedTag(tag.id) ? '' : 'opacity-50'"
-                            class="px-2"
-                        >
-                            <AtomTag
-                                :id="tag.id"
-                                :label="tag.label"
-                                :icon="tag.icon_path"
-                                :disable-link="true"
-                            />
-                        </label>
-                    </li>
-                </ul>
             </div>
         </div>
 

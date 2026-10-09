@@ -10,6 +10,7 @@ const headers: Header[] = [
     { label: 'Tag', url: '/manage/blog/tag', icon: 'sell' },
     { label: 'Comment', url: '/manage/blog/comment', icon: 'chat_bubble' },
     { label: 'Accessibility', url: '/manage/blog/accessibility', icon: 'accessibility_new' },
+    { label: 'SubSite', url: '/manage/blog/subSite', icon: 'domain_add' },
 ]
 
 const route = useRoute()

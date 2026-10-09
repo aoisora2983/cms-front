@@ -134,7 +134,7 @@ const onChangeImage = async (event: Event) => {
     const target = event.target as HTMLInputElement
     const files = target.files
 
-    if (files) {
+    if (files && files[0]) {
         const formData = new FormData()
         formData.append('file', files[0])
 

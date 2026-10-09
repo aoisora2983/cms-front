@@ -56,4 +56,5 @@ export type Content = {
     thumbnail: string
     description: string
     page_type: number
+    id_sub_site: number
 }

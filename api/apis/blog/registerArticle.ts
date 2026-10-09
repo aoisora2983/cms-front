@@ -13,6 +13,7 @@ export type RegisterArticleRequest = {
     description: string
     thumbnail: string
     page_type: number
+    published_site: number
 }
 
 export const registerArticle = async (

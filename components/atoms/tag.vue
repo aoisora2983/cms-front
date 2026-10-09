@@ -4,6 +4,7 @@ interface Props {
     label?: string
     icon?: string
     disableLink?: boolean
+    tagPath?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -11,9 +12,10 @@ const props = withDefaults(defineProps<Props>(), {
     label: '',
     icon: '',
     disableLink: false,
+    tagPath: '/blog/',
 })
 
-const href = '/blog/tag/' + props.id
+const href = props.tagPath + 'tag/' + props.id
 </script>
 
 <template>

@@ -40,7 +40,9 @@ const getIds = () => {
     const ids = []
 
     for (const index in comments.value) {
-        ids.push(comments.value[index].id)
+        if (typeof comments.value[index] !== 'undefined') {
+            ids.push(comments.value[index].id)
+        }
     }
 
     return ids

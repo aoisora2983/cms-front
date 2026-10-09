@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'
+import { getSubSiteList } from '~/api/apis/subSite/getSubSiteList'
 import { fileupload } from '~/api/apis/common/fileupload'
 import type { ArticleStatus } from '~/api/models/blog/article'
 import { ARTICLE_STATUSES, PAGE, UNIQUE_PAGE_TYPES } from '~/constants/constants'
@@ -14,6 +15,7 @@ interface Props {
     description?: string
     thumbnail?: string
     pageType?: number
+    publishedSite?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -24,9 +26,12 @@ const props = withDefaults(defineProps<Props>(), {
     description: '',
     thumbnail: '',
     pageType: PAGE,
+    publishedSite: 0,
 })
 
 const loading = useLoading()
+const subSites = await getSubSiteList()
+
 const description = ref(props.description)
 
 const _publishedStartTime = ref(dayjs().startOf('day'))
@@ -41,6 +46,7 @@ const publishedEndAt = ref(tmpPublishedEndTime)
 const publishedInfinity = ref(true)
 const thumbnail = ref(props.thumbnail ? props.thumbnail : noImageUrl)
 const pageType = ref(props.pageType ? props.pageType : PAGE)
+const publishedSite = ref(props.publishedSite ? props.publishedSite : 0)
 
 const status = ref(props.status ?? ARTICLE_STATUSES[0])
 if (props.status != null) {
@@ -52,7 +58,7 @@ const emits = defineEmits(
     [
         'update:show', 'update:status', 'update:description',
         'update:publishedStartTime', 'update:publishedEndTime', 'update:publishedInfinity',
-        'update:thumbnail', 'update:pageType',
+        'update:thumbnail', 'update:pageType', 'update:publishedSite',
     ],
 )
 
@@ -68,6 +74,7 @@ const onOk = () => {
     emits('update:publishedInfinity', publishedInfinity.value)
     emits('update:thumbnail', thumbnail.value)
     emits('update:pageType', pageType.value)
+    emits('update:publishedSite', publishedSite.value)
     updateShow(false)
 }
 
@@ -232,6 +239,30 @@ const onChangeImage = async (event: Event) => {
                         :value="item['id']"
                     >
                         {{ item["label"] }}
+                    </option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label
+                    htmlFor="published-site"
+                    class="block pb-1"
+                >
+                    配信サイト設定
+                </label>
+                <select
+                    id="published-site"
+                    v-model="publishedSite"
+                    class="box-border border border-gray-300 w-full rounded-sm px-4 py-2"
+                >
+                    <option :value="0">
+                        メイン
+                    </option>
+                    <option
+                        v-for="(item, index) in subSites"
+                        :key="index"
+                        :value="item['id']"
+                    >
+                        {{ item["title"] }}
                     </option>
                 </select>
             </div>

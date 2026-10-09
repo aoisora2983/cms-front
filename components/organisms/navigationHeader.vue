@@ -1,19 +1,45 @@
 <script setup lang="ts">
-import { getTagList } from '~/api/apis/blog/getTagList'
+import { getOpenTagList } from '~/api/apis/blog/getOpenTagList'
+import { getOpenSubSiteList } from '~/api/apis/subSite/getOpenSubSiteList'
+
+interface Props {
+    idSubSite?: number
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    idSubSite: 0,
+})
 
 interface Header {
     label: string
     url: string
     strict: boolean
     icon: string
+    isOpen?: boolean
+    children?: Array<Header>
 }
 
-const headers: Header[] = [
+const subSites = await getOpenSubSiteList()
+
+const blogs: Array<Header> = [{
+    label: 'Tech', url: '/blog', strict: true, icon: 'terminal',
+}]
+
+for (let index = 0; index < subSites.length; index++) {
+    const subSite = subSites[index]
+    if (typeof subSite !== 'undefined') {
+        blogs.push({
+            label: subSite.subdir_name, url: '/' + subSite.subdir_name, strict: true, icon: subSite.icon_text,
+        })
+    }
+}
+
+const headers: Ref<Header[]> = ref([
     { label: 'HOME', url: '/', strict: true, icon: 'home' },
     { label: 'Portfolio', url: '/portfolio', strict: true, icon: 'work' },
-    { label: 'Blog', url: '/blog', strict: true, icon: 'description' },
+    { label: 'Blog', url: '', strict: true, icon: 'description', isOpen: false, children: blogs },
     { label: 'Tools', url: '/tools', strict: true, icon: 'service_toolbox' },
-]
+])
 
 const route = useRoute()
 const isOpen = ref(false)
@@ -21,7 +47,9 @@ const config = useRuntimeConfig()
 const openSearch = ref(false)
 const searchKeyword = ref('')
 
-const tagList = await getTagList()
+const tagList = await getOpenTagList({
+    id_sub_site: props.idSubSite,
+})
 
 const isActive = (url: string, strict: boolean) => {
     if (strict) {
@@ -119,18 +147,66 @@ const searchGoogle = () => {
                             :key="index"
                         >
                             <NuxtLink
-                                v-if="!isActive(header.url, header.strict)"
+                                v-if="!isActive(header.url, header.strict) && !header.children"
                                 class="hover:opacity-70 px-4 py-2 rounded-full flex justify-start items-center"
                                 :to="header.url"
                             >
                                 <i
                                     class="material-icons mr-2 text-2xl"
                                     aria-hidden="true"
-                                >{{ header.icon }}</i>
+                                >
+                                    {{ header.icon }}
+                                </i>
                                 <span>
                                     {{ header.label }}
                                 </span>
                             </NuxtLink>
+                            <div
+                                v-else-if="header.children"
+                                class="px-4 py-2 rounded-full relative"
+                                :class="header.isOpen ? 'active' : ''"
+                            >
+                                <button
+                                    class="hover:opacity-70 flex justify-start items-center"
+                                    @click="header.isOpen = !header.isOpen"
+                                >
+                                    <i
+                                        class="material-icons mr-2 text-2xl"
+                                        aria-hidden="true"
+                                    >
+                                        {{ header.icon }}
+                                    </i>
+                                    <span>
+                                        {{ header.label }}
+                                    </span>
+                                </button>
+                                <ul
+                                    v-if="header.children"
+                                    :class="header.isOpen ? '' : 'hidden'"
+                                    class="absolute top-full border-2 border-gray-100 bg-white rounded-sm"
+                                >
+                                    <li
+                                        v-for="(child, childIndex) in header.children"
+                                        :key="childIndex"
+                                    >
+                                        <NuxtLink
+                                            class="hover:opacity-70 px-4 py-2 rounded-full flex justify-start items-center"
+                                            :class="isActive(child.url, child.strict) ? 'opacity-70': ''"
+                                            :to="child.url"
+                                        >
+                                            <i
+                                                class="material-icons mr-2 text-2xl"
+                                                aria-hidden="true"
+                                            >
+                                                {{ child.icon }}
+                                            </i>
+                                            <span>
+                                                {{ child.label }}
+                                            </span>
+                                        </NuxtLink>
+                                    </li>
+                                </ul>
+                            </div>
                             <span
                                 v-else
                                 class="px-4 py-2 opacity-50 flex justify-start items-center"
@@ -138,7 +214,9 @@ const searchGoogle = () => {
                                 <i
                                     class="material-icons mr-2 text-2xl"
                                     aria-hidden="true"
-                                >{{ header.icon }}</i>
+                                >
+                                    {{ header.icon }}
+                                </i>
                                 <span>
                                     {{ header.label }}
                                 </span>
@@ -196,7 +274,10 @@ const searchGoogle = () => {
                         </button>
                     </div>
                 </form>
-                <div class="mt-6 mb-20">
+                <div
+                    v-if="route.path.startsWith('/blog')"
+                    class="mt-6 mb-20"
+                >
                     <h2
                         class="flex items-center w-full"
                     >

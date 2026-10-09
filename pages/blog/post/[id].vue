@@ -14,6 +14,14 @@ const id = parseInt(routeId)
 const article = await getOpenArticle({
     id: id,
 })
+
+if (typeof article == 'undefined') {
+    throw createError({
+        statusCode: 404,
+        statusMessage: 'Page Not Found',
+    })
+}
+
 const pastYear = dayjs().subtract(1, 'y')
 const publishedAt = dayjs(article.content.published_start_time)
 const updatedAt = dayjs(article.content.published_updated_time)

@@ -26,6 +26,17 @@ export const PORTFOLIO_STATUSES = [
     },
 ]
 
+export const SUB_SITE_STATUSES = [
+    {
+        id: 0,
+        label: '非公開',
+    },
+    {
+        id: 1,
+        label: '公開',
+    },
+]
+
 export const COMMENT_STATUSES = [
     {
         id: 0,

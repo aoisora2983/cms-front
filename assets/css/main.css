@@ -127,6 +127,7 @@ body {
     }
 
     .accordion-target>li>a,
+    .accordion-target>li>div,
     .accordion-target>li>span {
         width: 100%;
         padding: 16px;
@@ -135,6 +136,22 @@ body {
     .accordion-target>li>a:hover {
         opacity: 0.7;
         background-color: transparent;
+    }
+
+    .accordion-target>li>div.active {
+        background-color: #4c6180;
+        border-radius: 0%;
+    }
+
+    .accordion-target>li>div>ul {
+        position: relative;
+        background-color: transparent;
+        margin-top: 16px;
+        border: none;
+    }
+
+    .accordion-target>li>div>ul>li {
+        border-top: 1px solid;
     }
 }
 

@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import noImageUrl from '@/assets/img/no_image.jpg'
 import { getPortfolioList } from '~/api/apis/portfolio/getPortfolioList'
 import { DATETIME_FORMAT, PORTFOLIO_STATUSES } from '~/constants/constants'
-import { deletePortfolio } from '~/api/apis/portfolio/deleteComment'
+import { deletePortfolio } from '~/api/apis/portfolio/deletePortfolio'
 
 definePageMeta({ layout: 'admin' })
 

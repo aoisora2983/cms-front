@@ -28,12 +28,14 @@ const status = ref(0)
 const onClickEdit = (
     _subSiteId: number,
     _subDirName: string,
+    _iconText: string,
     _title: string,
     _description: string,
     _status: number,
 ) => {
     subSiteId.value = _subSiteId
     subDirName.value = _subDirName
+    iconText.value = _iconText
     title.value = _title
     description.value = _description
     status.value = _status
@@ -43,6 +45,7 @@ const onClickEdit = (
 const onClickAdd = () => {
     subSiteId.value = 0
     subDirName.value = ''
+    iconText.value = ''
     title.value = ''
     description.value = ''
     status.value = 0
@@ -154,6 +157,7 @@ useHead({
                                     @click="onClickEdit(
                                         subSite.id,
                                         subSite.subdir_name,
+                                        subSite.icon_text,
                                         subSite.title,
                                         subSite.description,
                                         subSite.status,

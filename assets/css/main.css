@@ -42,6 +42,10 @@ body {
     scroll-margin-top: 80px;
 }
 
+#accordion-label {
+    display: none;
+}
+
 /* cssだけのアコーディオン動作処理 */
 @media (max-width: 1024px) {
     #accordion-label {
@@ -60,6 +64,7 @@ body {
         background-color: #333;
         width: 100%;
         z-index: 101;
+        left: 0;
     }
 
     #accordion-label span:nth-of-type(1) {
@@ -74,32 +79,32 @@ body {
         top: 20px;
     }
 
-    #accordion:checked+#accordion-label>span {
+    #accordion-label.active>span {
         background-color: #fff;
     }
 
-    #accordion:checked+#accordion-label span:nth-of-type(1) {
+    #accordion-label.active span:nth-of-type(1) {
         top: 10px;
         transform: translateY(6px) rotate(-33deg);
     }
 
-    #accordion:checked+#accordion-label span:nth-of-type(2) {
+    #accordion-label.active span:nth-of-type(2) {
         opacity: 0;
     }
 
-    #accordion:checked+#accordion-label span:nth-of-type(3) {
+    #accordion-label.active span:nth-of-type(3) {
         top: 10px;
         transform: translateY(6px) rotate(33deg);
     }
 
 
-    #accordion+#accordion-label+.accordion-target {
+    #accordion-label+.accordion-target {
         visibility: hidden;
         width: 0;
         padding: 80px 0px 50px;
     }
 
-    #accordion:checked+#accordion-label+.accordion-target {
+    #accordion-label.active+.accordion-target {
         visibility: visible;
         width: 260px;
         padding: 80px 16px 50px;
@@ -127,7 +132,6 @@ body {
     }
 
     .accordion-target>li>a,
-    .accordion-target>li>div,
     .accordion-target>li>span {
         width: 100%;
         padding: 16px;
@@ -146,7 +150,6 @@ body {
     .accordion-target>li>div>ul {
         position: relative;
         background-color: transparent;
-        margin-top: 16px;
         border: none;
     }
 

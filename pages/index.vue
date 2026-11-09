@@ -63,7 +63,7 @@ addJsonLd({
                 <div
                     class="flex-grow p-4 md:px-4 md:py-8"
                 >
-                    <h1 class="text-4xl sm:text-6xl font-bold mt-4 mb-10 text-center">
+                    <h1 class="text-2xl sm:text-4xl font-bold mt-4 mb-10 text-center">
                         このサイトについて
                     </h1>
                     <p class="mb-8 text-left sm:text-center">
@@ -80,7 +80,7 @@ addJsonLd({
         >
             <div class="min-h-screen flex items-center mb-40 md:mb-0 max-w-5xl mx-auto py-20">
                 <div class="flex-grow p-4">
-                    <h2 class="text-5xl sm:text-6xl font-bold mb-4 text-center">
+                    <h2 class="text-2xl sm:text-4xl font-bold mb-4 text-center">
                         Portfolio
                     </h2>
                     <p class="mb-8 text-center">
@@ -115,7 +115,7 @@ addJsonLd({
         >
             <div class="min-h-screen flex items-center max-w-5xl mx-auto py-20">
                 <div class="flex-grow p-4">
-                    <h2 class="text-5xl sm:text-6xl font-bold mb-4 text-center">
+                    <h2 class="text-2xl sm:text-4xl font-bold mb-4 text-center">
                         Blog
                     </h2>
                     <p class="mb-8 text-center">

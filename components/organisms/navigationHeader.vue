@@ -126,19 +126,18 @@ const searchGoogle = () => {
                     </button>
                 </div>
 
-                <div>
-                    <input
-                        id="accordion"
-                        v-model="isOpen"
-                        type="checkbox"
-                        class="hidden"
-                    >
-                    <label
+                <div @keydown.esc="isOpen = false">
+                    <button
                         id="accordion-label"
-                        for="accordion"
+                        type="button"
+                        :aria-expanded="isOpen"
+                        aria-controls="accordion-target-menu"
+                        :aria-label="isOpen ? 'メニューを閉じる' : 'メニューを開く'"
+                        :class="isOpen ? 'active' : ''"
+                        @click="isOpen = !isOpen"
                     >
                         <span /><span /><span />
-                    </label>
+                    </button>
                     <ul
                         class="accordion-target lg:flex lg:justify-end lg:text-lg"
                     >
@@ -163,11 +162,11 @@ const searchGoogle = () => {
                             </NuxtLink>
                             <div
                                 v-else-if="header.children"
-                                class="px-4 py-2 rounded-full relative"
+                                class="rounded-full relative"
                                 :class="header.isOpen ? 'active' : ''"
                             >
                                 <button
-                                    class="hover:opacity-70 flex justify-start items-center"
+                                    class="hover:opacity-70 w-full px-4 py-4 lg:py-2 flex justify-start items-center"
                                     @click="header.isOpen = !header.isOpen"
                                 >
                                     <i
@@ -183,14 +182,15 @@ const searchGoogle = () => {
                                 <ul
                                     v-if="header.children"
                                     :class="header.isOpen ? '' : 'hidden'"
-                                    class="absolute top-full border-2 border-gray-100 bg-white rounded-sm"
+                                    class="absolute top-full border-2 ml-4 lg:ml-0 border-gray-100 bg-white rounded-sm"
                                 >
                                     <li
                                         v-for="(child, childIndex) in header.children"
                                         :key="childIndex"
+                                        class="group"
                                     >
                                         <NuxtLink
-                                            class="hover:opacity-70 px-4 py-2 rounded-full flex justify-start items-center"
+                                            class="hover:opacity-70 px-4 pt-4 lg:pt-2 pb-4 lg:pb-2 rounded-full flex justify-start items-center"
                                             :class="isActive(child.url, child.strict) ? 'opacity-70': ''"
                                             :to="child.url"
                                         >

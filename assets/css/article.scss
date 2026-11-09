@@ -8,6 +8,7 @@
     }
 
     h2 {
+        font-weight: bold;
         font-size: 1.875rem;
         line-height: 2.25rem;
         padding: 8px 16px;
@@ -36,6 +37,39 @@
         line-height: 1.75rem;
         padding: 4px 16px;
         margin: 8px 0;
+    }
+
+    @media (max-width: 1024px) {
+        h2 {
+            font-weight: bold;
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+            padding: 8px 16px;
+            margin: 40px 0 24px 0;
+            border-bottom: 2px solid;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+            padding: 4px 16px;
+            margin: 24px 0 16px 0;
+            border-left: 4px solid;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            padding: 4px 16px;
+            margin: 16px 0;
+            border-left: 6px double;
+        }
+
+        h5 {
+            font-size: 1.05rem;
+            line-height: 1.75rem;
+            padding: 4px 16px;
+            margin: 8px 0;
+        }
     }
 
     /** 箇条書きリスト **/

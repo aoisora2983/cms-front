@@ -25,6 +25,10 @@ export default defineNuxtConfig({
             path: '~/components/organisms',
             prefix: 'Organism',
         },
+        {
+            path: '~/components/pages',
+            prefix: 'Page',
+        },
     ],
     devtools: { enabled: false },
     app: {

@@ -3,6 +3,7 @@ import type { Article } from '~/api/models/blog/article'
 
 export type OpenArticleRequest = {
     id: number
+    id_sub_site: number
 }
 
 export const getOpenArticle = async (

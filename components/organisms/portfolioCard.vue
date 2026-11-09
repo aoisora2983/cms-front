@@ -25,7 +25,7 @@ withDefaults(defineProps<Props>(), {
             </div>
             <component
                 :is="'h' + hLevel"
-                class="text-center text-4xl font-bold mb-4"
+                class="text-center text-2xl sm:text-4xl font-bold mb-4"
             >
                 {{ portfolio.title }}
             </component>

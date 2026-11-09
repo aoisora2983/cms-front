@@ -9,7 +9,7 @@ useHead({
     meta: [
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
-        { name: 'robots', content: 'noindex' },
+        { name: 'robots', content: 'noindex, follow' },
     ],
 })
 

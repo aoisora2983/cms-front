@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as d3 from 'd3'
+import { select, selectAll, geoIdentity, geoPath } from 'd3'
 import type { Breadcrumb } from '~/api/models/common'
 import simpleMap from '~/assets/json/simplemap.json'
 import type SelectPrefecture from '~/components/atoms/selectPrefecture.vue'
@@ -71,15 +71,15 @@ const createMap = () => {
     }
     map.innerHTML = ''
 
-    const svg = d3.select('#map').append('svg')
+    const svg = select('#map').append('svg')
         .attr('height', height.value)
         .attr('width', width.value)
 
-    const projection = d3.geoIdentity()
+    const projection = geoIdentity()
         .reflectY(true)
         .fitSize([width.value, height.value], json as d3.GeoGeometryObjects)
 
-    const path = d3.geoPath(projection)
+    const path = geoPath(projection)
 
     svg.selectAll('path')
         .data(json.features)
@@ -94,7 +94,7 @@ const createMap = () => {
         })
         .on('click', function (_, features: Features) {
             const pref = features.properties.N03_001
-            const target = d3.selectAll('[data-pref-name=' + pref + ']')
+            const target = selectAll('[data-pref-name=' + pref + ']')
             const indexOfPref = clickedPref.value.indexOf(pref)
 
             if (indexOfPref == -1) {
@@ -125,7 +125,7 @@ const clickAllPref = () => {
 }
 
 const onClickPref = () => {
-    const svg = d3.select('#map')
+    const svg = select('#map')
     svg.selectAll('path').attr('fill', fillColor.value)
 
     for (const pref of clickedPref.value) {

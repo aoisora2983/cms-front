@@ -83,7 +83,7 @@ const onClickOutside = () => {
                     >
                         <span /><span /><span />
                     </label>
-                    <ul class="accordion-target lg:flex lg:justify-end lg:text-md">
+                    <ul class="accordion-target lg:flex lg:justify-end lg:text-md break-words">
                         <li
                             v-for="(header, index) in headers"
                             :key="index"

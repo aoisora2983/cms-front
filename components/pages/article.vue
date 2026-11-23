@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import hljs from 'highlight.js'
-import * as cheerio from 'cheerio'
+import { load } from 'cheerio'
 import { getOpenArticle } from '~/api/apis/blog/getOpenArticle'
 import '~/assets/css/article.scss'
 import 'highlight.js/styles/hybrid.css'
@@ -47,7 +47,7 @@ const updatedAt = dayjs(article.content.published_updated_time)
 
 // highligh対象の内容を加工
 const tmpHtml = '<body>' + article.content.content + '</body>'
-const $ = cheerio.load(tmpHtml)
+const $ = load(tmpHtml)
 $('pre').each((_, elm) => {
     $(elm).find('code').each((_, code) => {
         const result = hljs.highlightAuto($(code).text()).value

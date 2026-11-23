@@ -87,7 +87,7 @@ export default defineNuxtConfig({
             apiUrl: process.env.NUXT_PUBLIC_API_URL || '',
             imageUrl: process.env.NUXT_PUBLIC_IMAGE_URL || '',
             copyRight: process.env.NUXT_PUBLIC_COPY_RIGHT || '',
-            ga4: process.env.NUXT_PUBLIC_GA4_TAG || '',
+            gtm: process.env.NUXT_PUBLIC_GTM_TAG || '',
             googleAdSense: process.env.NUXT_PUBLIC_GOOGLE_ADSENSE || '',
             googleSearch: process.env.NUXT_PUBLIC_GOOGLE_SEARCH || '',
             author: process.env.NUXT_PUBLIC_AUTHOR || '',

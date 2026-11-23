@@ -139,7 +139,7 @@ const searchGoogle = () => {
                         <span /><span /><span />
                     </button>
                     <ul
-                        class="accordion-target lg:flex lg:justify-end lg:text-lg"
+                        class="accordion-target lg:flex lg:justify-end lg:text-lg break-words"
                     >
                         <li
                             v-for="(header, index) in headers"

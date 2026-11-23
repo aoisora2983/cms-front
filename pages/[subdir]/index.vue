@@ -17,6 +17,13 @@ const subSite = await getSubSite({
     sub_dir_name: subdir,
 })
 
+if (subSite.id == 0) {
+    throw createError({
+        statusCode: 404,
+        statusMessage: 'Page Not Found',
+    })
+}
+
 const title = subSite.title + 'のブログ記事一覧'
 const description = subSite.title + 'のブログ記事の一覧です。'
 

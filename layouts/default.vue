@@ -15,18 +15,17 @@ const getCanonicalPath = (path: string) => {
 }
 
 const scripts: { type: string, async?: boolean, src?: string, innerHTML?: string }[] = []
-if (config.public.ga4 != '') {
+if (config.public.gtm != '') {
     scripts.push({
         type: 'text/javascript',
         async: true,
-        src: `https://www.googletagmanager.com/gtag/js?id=${config.public.ga4}`,
+        src: `https://www.googletagmanager.com/gtm.js?id=${config.public.gtm}`,
     })
     scripts.push({
         type: 'text/javascript',
         innerHTML: `window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', '${config.public.ga4}');`,
+                    gtag('js', new Date());`,
     })
 }
 

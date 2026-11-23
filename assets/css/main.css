@@ -37,6 +37,32 @@ body {
     font-family: "Helvetica Neue", sans-serif;
 }
 
+:where(:root) {
+    text-autospace: normal;
+    text-spacing-trim: trim-start;
+    line-break: strict;
+    overflow-wrap: anywhere;
+}
+
+:where(pre) {
+    text-autospace: no-autospace;
+    text-spacing-trim: space-all;
+}
+
+:where(time) {
+    text-autospace: no-autospace;
+}
+
+:where(input:not([type="button" i], [type="submit" i], [type="reset" i]),
+    textarea,
+    [contenteditable]) {
+    text-autospace: no-autospace;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+    text-wrap: balance;
+}
+
 .page {
     /* アクセシビリティ確保のため、ヘッダー分の高さを確保 */
     scroll-margin-top: 80px;

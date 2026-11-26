@@ -36,7 +36,7 @@ withDefaults(defineProps<Props>(), {
         <div class="text-center w-full">
             <AtomLinkButton
                 :href="portfolio.detail_url"
-                label="More Detail"
+                label="詳細をみる"
                 color="white"
                 bg-color="black"
             />

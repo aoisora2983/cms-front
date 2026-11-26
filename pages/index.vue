@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { getOpenTagList } from '~/api/apis/blog/getOpenTagList'
 import { getOpenPortfolioList } from '~/api/apis/portfolio/getOpenPortfolioList'
 
 const { addJsonLd } = useJsonLd()
@@ -19,6 +20,10 @@ useSeoMeta({
 })
 
 const portfolioList = await getOpenPortfolioList()
+
+const tagList = await getOpenTagList({
+    id_sub_site: 0,
+})
 
 const config = useRuntimeConfig()
 addJsonLd({
@@ -47,36 +52,63 @@ addJsonLd({
             "
         >
             <div
-                class="
-                    min-h-screen flex items-center max-w-5xl mx-auto py-20 bg-repeat
-                    relative
-                    before:border-2 before:border-gray-600
-                    before:border-l-4 before:border-t-4 before:border-b-0 before:border-r-0
-                    before:w-5 before:h-5 before:absolute
-                    before:top-20 before:left-2
-                    after:border-2 after:border-gray-600
-                    after:border-l-0 after:border-t-0 after:border-b-4 after:border-r-4
-                    after:w-5 after:h-5 after:absolute
-                    after:bottom-40 after:right-2
-                "
+                class="flex items-center max-w-5xl mx-auto pt-14 pb-8 bg-repeat"
             >
                 <div
                     class="flex-grow p-4 md:px-4 md:py-8"
                 >
-                    <h1 class="text-2xl sm:text-4xl font-bold mt-4 mb-10 text-center">
-                        このサイトについて
-                    </h1>
-                    <p class="mb-8 text-left sm:text-center">
-                        ポートフォリオサイト兼学んだことのアウトプットブログサイトです。<br>
-                        業務では主にPHPを扱い、趣味ではGo、Nuxt、Flutterを勉強しています。<br>
-                        趣味で開発した自作のオンラインツールや、技術的な学びを記録した記事、ポエムを公開しています。<br>
+                    <p class="mb-8 text-center">
+                        PHP・Go・Nuxt等を勉強しているエンジニアの技術ブログ・ポートフォリオ
                     </p>
+                    <h1 class="text-2xl sm:text-4xl font-bold mt-4 mb-10 text-center">
+                        WA
+                    </h1>
+                </div>
+            </div>
+        </section>
+        <section
+            id="blog-list"
+            class="bg-gray-50"
+        >
+            <div class="min-h-screen flex items-center max-w-5xl mx-auto py-20">
+                <div class="flex-grow p-4 min-w-0 flex-1">
+                    <h2 class="text-2xl sm:text-4xl font-bold mb-4 text-center">
+                        Blog
+                    </h2>
+                    <p class="mb-8 text-center">
+                        技術記事など
+                    </p>
+                    <ul
+                        class="flex w-full max-w-full flex-nowrap items-center gap-2 overflow-x-auto whitespace-nowrap mb-4 pr-8 [mask-image:linear-gradient(to_right,#000_88%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,#000_88%,transparent_100%)]"
+                    >
+                        <li
+                            v-for="(tag, index) in tagList"
+                            :key="index"
+                            class="shrink-0"
+                        >
+                            <AtomTag
+                                :id="tag.id"
+                                :label="tag.label"
+                                :icon="tag.icon_path"
+                            />
+                        </li>
+                    </ul>
+                    <LazyOrganismBlogCardList
+                        :h-level="3"
+                        :limit="6"
+                        :display-description="false"
+                    />
+                    <AtomLinkButton
+                        href="/blog"
+                        label="すべての記事一覧をみる"
+                        color="black"
+                    />
                 </div>
             </div>
         </section>
         <section
             id="portfolio-list"
-            class="bg-gray-50"
+            class="bg-white"
         >
             <div class="min-h-screen flex items-center mb-40 md:mb-0 max-w-5xl mx-auto py-20">
                 <div class="flex-grow p-4">
@@ -100,35 +132,12 @@ addJsonLd({
                     <div class="flex justify-center w-full">
                         <AtomLinkButton
                             href="/portfolio"
-                            label="More Detail"
+                            label="制作実績一覧をみる"
                             color="black"
                             bg-color="white"
                             class="w-full"
                         />
                     </div>
-                </div>
-            </div>
-        </section>
-        <section
-            id="blog-list"
-            class="bg-white"
-        >
-            <div class="min-h-screen flex items-center max-w-5xl mx-auto py-20">
-                <div class="flex-grow p-4">
-                    <h2 class="text-2xl sm:text-4xl font-bold mb-4 text-center">
-                        Blog
-                    </h2>
-                    <p class="mb-8 text-center">
-                        技術メモやポエムなど
-                    </p>
-                    <LazyOrganismBlogCardList
-                        :h-level="3"
-                    />
-                    <AtomLinkButton
-                        href="/blog"
-                        label="More Detail"
-                        color="black"
-                    />
                 </div>
             </div>
         </section>

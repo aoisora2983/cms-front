@@ -9,12 +9,14 @@ interface Props {
     tagLimit?: number
     hLevel?: number
     blogPath?: string
+    displayDescription?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
     tagLimit: 10,
     hLevel: 2,
     blogPath: '/blog/',
+    displayDescription: true,
 })
 const content = props.article.content
 const publishedAt = dayjs(content.published_start_time)
@@ -33,27 +35,30 @@ const thumbnail = content.thumbnail != null ? '/uploader' + content.thumbnail : 
                 height="96"
             />
         </div>
-        <component
-            :is="'h' + hLevel"
-            class="text-xl font-bold mb-4"
+        <NuxtLink
+            :to="props.blogPath + 'post/' + content.id"
+            class="whitespace-pre-wrap hover:opacity-60"
         >
-            <NuxtLink
-                :to="props.blogPath + 'post/' + content.id"
-                class="underline whitespace-pre-wrap hover:opacity-60"
+            <component
+                :is="'h' + hLevel"
+                class="text-xl font-bold mb-4 hover:underline"
             >
                 {{ content.title }}
-            </NuxtLink>
-        </component>
-        <header class="text-right text-sm mb-2">
+            </component>
+        </NuxtLink>
+        <header class="text-sm mb-2">
             <time :datetime="content.published_start_time">
                 {{ publishedAt.format(DATE_FORMAT) }}
             </time> 掲載
         </header>
-        <p class="mb-4 flex-grow">
+        <p
+            v-if="props.displayDescription"
+            class="mb-4 flex-grow"
+        >
             {{ content.description }}
         </p>
         <footer class="text-sm">
-            <div class="flex mb-2">
+            <div class="flex mb-2 pt-2">
                 <ul class="flex flex-wrap gap-2 mb-2">
                     <li
                         v-for="(tag, index) in article.tags.slice(0, tagLimit)"

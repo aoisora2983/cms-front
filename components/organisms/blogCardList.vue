@@ -7,6 +7,7 @@ interface Props {
     limit?: number
     excludePageId?: number[] | null
     idSubSite?: number
+    displayDescription?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -14,6 +15,7 @@ const props = withDefaults(defineProps<Props>(), {
     tags: null,
     limit: 12,
     idSubSite: 0,
+    displayDescription: true,
 })
 
 const articleList = await getOpenArticleList({
@@ -39,6 +41,7 @@ const articleList = await getOpenArticleList({
                 :article="article"
                 :tag-limit="2"
                 :h-level="hLevel"
+                :display-description="displayDescription"
             />
         </li>
     </ul>

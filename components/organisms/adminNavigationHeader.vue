@@ -71,18 +71,17 @@ const onClickOutside = () => {
                 class="flex justify-end items-center"
             >
                 <div>
-                    <input
-                        id="accordion"
-                        v-model="isOpen"
-                        type="checkbox"
-                        class="hidden"
-                    >
-                    <label
+                    <button
                         id="accordion-label"
-                        for="accordion"
+                        type="button"
+                        :aria-expanded="isOpen"
+                        aria-controls="accordion-target-menu"
+                        :aria-label="isOpen ? 'メニューを閉じる' : 'メニューを開く'"
+                        :class="isOpen ? 'active' : ''"
+                        @click="isOpen = !isOpen"
                     >
                         <span /><span /><span />
-                    </label>
+                    </button>
                     <ul class="accordion-target lg:flex lg:justify-end lg:text-md break-words">
                         <li
                             v-for="(header, index) in headers"
